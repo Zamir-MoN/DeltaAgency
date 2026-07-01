@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Gamepad2 } from "lucide-react";
 import clsx from "clsx";
+import { useGameMode } from "@/context/GameModeContext";
 
 import Image from "next/image";
 
@@ -19,6 +20,14 @@ const navLinks = [
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { isGameMode, toggleGameMode } = useGameMode();
+
+  const handleGameModeToggle = () => {
+    if (!isGameMode) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    toggleGameMode();
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,12 +40,14 @@ export default function Navbar() {
   return (
     <header
       className={clsx(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled ? "bg-white border-b-4 border-black shadow-[0_4px_0_0_#000] py-4" : "bg-transparent py-6"
+        "pacman-wall fixed top-0 left-0 right-0 z-[10000] transition-all duration-300",
+        isScrolled 
+          ? (isGameMode ? "bg-black/90 border-b-4 border-brand-pink shadow-[0_4px_0_0_#EC4899] py-4" : "bg-white border-b-4 border-black shadow-[0_4px_0_0_#000] py-4") 
+          : "bg-transparent py-6"
       )}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between h-10">
-        <Link href="/" className="relative z-50 flex items-center h-full text-4xl font-logo tracking-tighter uppercase text-black">
+        <Link href="/" onClick={() => { if (isGameMode) toggleGameMode(); }} className={clsx("relative z-50 flex items-center h-full text-4xl font-logo tracking-tighter uppercase", isGameMode ? "text-white" : "text-black")}>
           <motion.span 
             animate={{
               x: [0, -2, 2, -1, 1, 0],
@@ -47,7 +58,9 @@ export default function Navbar() {
                 "-2px -2px 0px #22C55E",
                 "2px 2px 0px #EC4899"
               ],
-              color: ["#000000", "#EC4899", "#06B6D4", "#FACC15", "#000000"]
+              color: isGameMode 
+                ? ["#FFFFFF", "#EC4899", "#06B6D4", "#FACC15", "#FFFFFF"]
+                : ["#000000", "#EC4899", "#06B6D4", "#FACC15", "#000000"]
             }}
             transition={{
               duration: 0.4,
@@ -56,7 +69,7 @@ export default function Navbar() {
               ease: "linear"
             }}
             className="inline-block"
-            style={{ textShadow: "2px 2px 0px #EC4899", color: "#000000" }}
+            style={{ textShadow: "2px 2px 0px #EC4899", color: isGameMode ? "#FFFFFF" : "#000000" }}
           >
             DX
           </motion.span>
@@ -68,7 +81,11 @@ export default function Navbar() {
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm font-space font-bold uppercase text-black hover:text-brand-blue hover:-translate-y-1 transition-transform duration-200"
+              onClick={() => { if (isGameMode) toggleGameMode(); }}
+              className={clsx(
+                "text-sm font-space font-bold uppercase hover:-translate-y-1 transition-transform duration-200",
+                isGameMode ? "text-white hover:text-brand-pink" : "text-black hover:text-brand-blue"
+              )}
             >
               {link.name}
             </Link>
@@ -78,26 +95,49 @@ export default function Navbar() {
         <div className="hidden lg:flex items-center space-x-6">
           <Link
             href="#contact"
-            className="text-sm font-space font-bold uppercase text-black hover:text-brand-blue hover:-translate-y-1 transition-transform duration-200"
+            onClick={() => { if (isGameMode) toggleGameMode(); }}
+            className={clsx(
+              "text-sm font-space font-bold uppercase hover:-translate-y-1 transition-transform duration-200",
+              isGameMode ? "text-white hover:text-brand-pink" : "text-black hover:text-brand-blue"
+            )}
           >
             Contact
           </Link>
           <Link
             href="#contact"
-            className="brutal-btn px-6 py-2.5 text-sm uppercase"
+            onClick={() => { if (isGameMode) toggleGameMode(); }}
+            className={clsx(
+              "brutal-btn px-6 py-2.5 text-sm uppercase",
+              isGameMode ? "bg-brand-cyan shadow-[6px_6px_0_#EC4899] hover:shadow-[4px_4px_0_#EC4899] active:shadow-[0_0_0_#EC4899] border-black text-black" : ""
+            )}
           >
             Start Project
           </Link>
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="lg:hidden relative z-50 p-2 -mr-2 text-black brutal-btn bg-white"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="lg:hidden flex items-center space-x-2 relative z-50">
+          <button
+            onClick={handleGameModeToggle}
+            className={clsx(
+              "p-2 border-2 brutal-btn",
+              isGameMode ? "bg-brand-pink text-black border-black" : "bg-white text-black border-black"
+            )}
+            aria-label="Toggle Game Mode"
+          >
+            <Gamepad2 size={20} />
+          </button>
+          <button
+            className={clsx(
+              "p-2 -mr-2 brutal-btn",
+              isGameMode ? "bg-brand-cyan text-black border-black" : "bg-white text-black border-black"
+            )}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
@@ -120,7 +160,10 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
+                    onClick={() => {
+                      setMobileMenuOpen(false);
+                      if (isGameMode) toggleGameMode();
+                    }}
                     className="text-4xl font-space font-black uppercase text-black hover:bg-black hover:text-white px-4 py-2 transition-colors border-4 border-transparent hover:border-black"
                   >
                     {link.name}
@@ -135,7 +178,10 @@ export default function Navbar() {
               >
                 <Link
                   href="#contact"
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    if (isGameMode) toggleGameMode();
+                  }}
                   className="w-full brutal-btn bg-white py-4 text-xl uppercase"
                 >
                   Start Project
@@ -145,6 +191,20 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Desktop Floating Game Toggle */}
+      <button
+        onClick={handleGameModeToggle}
+        className={clsx(
+          "hidden lg:flex fixed bottom-8 left-8 z-[10000] p-4 border-4 brutal-btn items-center justify-center transition-all hover:-translate-y-2 hover:-translate-x-2 active:translate-y-0 active:translate-x-0 shadow-[8px_8px_0_0_#000]",
+          isGameMode 
+            ? "bg-brand-pink text-black border-black shadow-[8px_8px_0_0_#06B6D4]" 
+            : "bg-white text-black border-black"
+        )}
+        aria-label="Toggle Game Mode"
+      >
+        <Gamepad2 size={32} />
+      </button>
     </header>
   );
 }

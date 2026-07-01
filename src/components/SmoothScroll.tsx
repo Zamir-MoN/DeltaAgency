@@ -1,15 +1,19 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Lenis from "lenis";
+import { useGameMode } from "@/context/GameModeContext";
 
 export default function SmoothScroll({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const [lenis, setLenis] = useState<Lenis | null>(null);
+  const { isGameMode } = useGameMode();
+
   useEffect(() => {
-    const lenis = new Lenis({
+    const l = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
@@ -18,18 +22,29 @@ export default function SmoothScroll({
       wheelMultiplier: 1,
       touchMultiplier: 2,
     });
+    
+    setLenis(l);
 
     function raf(time: number) {
-      lenis.raf(time);
+      l.raf(time);
       requestAnimationFrame(raf);
     }
 
     requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy();
+      l.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    if (!lenis) return;
+    if (isGameMode) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  }, [isGameMode, lenis]);
 
   return <>{children}</>;
 }

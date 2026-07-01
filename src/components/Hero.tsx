@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import { ClipboardEdit } from "lucide-react";
 import FloatingTechElements from "./FloatingTechElements";
 import DrawingBoard from "./DrawingBoard";
+import { useGameMode } from "@/context/GameModeContext";
 
 const PixelGridOverlay = ({ activeColor }: { activeColor: string }) => {
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
@@ -48,6 +49,7 @@ export default function Hero() {
   const [customDrawings, setCustomDrawings] = useState<CustomDrawing[]>([]);
   const [score, setScore] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+  const { isGameMode } = useGameMode();
   
   const { scrollY } = useScroll();
   const dY = useTransform(scrollY, [0, 1000], [0, -300]);
@@ -68,7 +70,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-20 bg-brand-bg-1 bg-[url('/grid.svg')] border-b-8 border-black overflow-hidden">
+    <section ref={containerRef} className={`relative min-h-screen flex items-center justify-center pt-20 ${isGameMode ? 'bg-black' : "bg-brand-bg-1 bg-[url('/grid.svg')]"} border-b-8 border-black overflow-hidden`}>
       
       <FloatingTechElements 
         customDrawings={customDrawings} 
@@ -111,16 +113,18 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Floating Clipboard Button */}
-      <motion.button
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 1 }}
-        onClick={() => setIsDrawingBoardOpen(true)}
-        className="fixed bottom-8 right-8 z-[60] bg-brand-yellow border-4 border-black p-4 shadow-[6px_6px_0_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all flex flex-col items-center justify-center gap-2 group"
-      >
-        <ClipboardEdit size={32} className="group-hover:rotate-12 transition-transform" />
-        <span className="font-mono font-bold text-xs">DRAW</span>
-      </motion.button>
+      {!isGameMode && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1 }}
+          onClick={() => setIsDrawingBoardOpen(true)}
+          className="fixed bottom-8 right-8 z-[60] bg-brand-yellow border-4 border-black p-4 shadow-[6px_6px_0_rgba(0,0,0,1)] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all flex flex-col items-center justify-center gap-2 group"
+        >
+          <ClipboardEdit size={32} className="group-hover:rotate-12 transition-transform" />
+          <span className="font-mono font-bold text-xs">DRAW</span>
+        </motion.button>
+      )}
 
       {/* Drawing Board Modal */}
       <AnimatePresence>
@@ -163,24 +167,27 @@ export default function Hero() {
             <motion.div 
               animate={{ scale: zoomedLetter === "D" ? 2.5 : 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 15 }}
-              className="inline-block drop-shadow-[8px_8px_0_rgba(236,72,153,1)] relative [image-rendering:pixelated]"
+              className="inline-block relative [image-rendering:pixelated]"
             >
               <div 
-                className={`${zoomedLetter === "D" ? "cursor-crosshair" : "cursor-zoom-in"} relative inline-block`} 
+                className={`${zoomedLetter === "D" ? "cursor-crosshair" : "cursor-zoom-in"} relative inline-block pacman-wall`} 
                 onClick={() => { if (zoomedLetter !== "D") setZoomedLetter("D") }}
               >
                 <span 
-                  style={{ 
+                  style={zoomedLetter === "D" ? { 
                     WebkitFontSmoothing: "none",
-                    backgroundImage: zoomedLetter === "D" 
-                      ? "linear-gradient(to right, rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(#000, #000)"
-                      : "none",
+                    backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.2) 1px, transparent 1px), linear-gradient(#000, #000)",
                     backgroundSize: "8px 8px, 8px 8px, 100% 100%",
-                    WebkitBackgroundClip: zoomedLetter === "D" ? "text" : "border-box",
-                    WebkitTextFillColor: zoomedLetter === "D" ? "transparent" : "inherit",
-                    color: zoomedLetter === "D" ? "transparent" : "#000"
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    color: "transparent"
+                  } : {
+                    WebkitFontSmoothing: "none",
+                    color: isGameMode ? "#FACC15" : "#000",
+                    textShadow: isGameMode 
+                      ? "1px 1px 0 #06B6D4, 2px 2px 0 #06B6D4, 3px 3px 0 #06B6D4, 4px 4px 0 #06B6D4, 5px 5px 0 #06B6D4, 6px 6px 0 #06B6D4, 7px 7px 0 #06B6D4, 8px 8px 0 #06B6D4"
+                      : "1px 1px 0 #EC4899, 2px 2px 0 #EC4899, 3px 3px 0 #EC4899, 4px 4px 0 #EC4899, 5px 5px 0 #EC4899, 6px 6px 0 #EC4899, 7px 7px 0 #EC4899, 8px 8px 0 #EC4899"
                   }}
-                  className={`${zoomedLetter === "D" ? "" : "text-black"}`}
                 >
                   D
                 </span>
@@ -200,24 +207,27 @@ export default function Hero() {
             <motion.div 
               animate={{ scale: zoomedLetter === "X" ? 2.5 : 1 }}
               transition={{ type: "spring", stiffness: 100, damping: 15 }}
-              className="inline-block drop-shadow-[8px_8px_0_rgba(250,204,21,1)] relative [image-rendering:pixelated]"
+              className="inline-block relative [image-rendering:pixelated]"
             >
               <div 
-                className={`${zoomedLetter === "X" ? "cursor-crosshair" : "cursor-zoom-in"} relative inline-block`} 
+                className={`${zoomedLetter === "X" ? "cursor-crosshair" : "cursor-zoom-in"} relative inline-block pacman-wall`} 
                 onClick={() => { if (zoomedLetter !== "X") setZoomedLetter("X") }}
               >
                 <span 
-                  style={{ 
+                  style={zoomedLetter === "X" ? { 
                     WebkitFontSmoothing: "none",
-                    backgroundImage: zoomedLetter === "X" 
-                      ? "linear-gradient(to right, rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(#06B6D4, #06B6D4)"
-                      : "none",
+                    backgroundImage: "linear-gradient(to right, rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(#06B6D4, #06B6D4)",
                     backgroundSize: "8px 8px, 8px 8px, 100% 100%",
-                    WebkitBackgroundClip: zoomedLetter === "X" ? "text" : "border-box",
-                    WebkitTextFillColor: zoomedLetter === "X" ? "transparent" : "inherit",
-                    color: zoomedLetter === "X" ? "transparent" : "#06B6D4"
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
+                    color: "transparent"
+                  } : {
+                    WebkitFontSmoothing: "none",
+                    color: isGameMode ? "#06B6D4" : "#06B6D4",
+                    textShadow: isGameMode
+                      ? "1px 1px 0 #EC4899, 2px 2px 0 #EC4899, 3px 3px 0 #EC4899, 4px 4px 0 #EC4899, 5px 5px 0 #EC4899, 6px 6px 0 #EC4899, 7px 7px 0 #EC4899, 8px 8px 0 #EC4899"
+                      : "1px 1px 0 #FACC15, 2px 2px 0 #FACC15, 3px 3px 0 #FACC15, 4px 4px 0 #FACC15, 5px 5px 0 #FACC15, 6px 6px 0 #FACC15, 7px 7px 0 #FACC15, 8px 8px 0 #FACC15"
                   }}
-                  className={`${zoomedLetter === "X" ? "" : "text-brand-cyan"}`}
                 >
                   X
                 </span>
@@ -228,27 +238,29 @@ export default function Hero() {
           
         </div>
 
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 3, duration: 1 }}
-          className="max-w-2xl mt-12 pointer-events-auto"
-        >
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              href="/#contact" 
-              className="group relative inline-flex items-center justify-center px-8 py-4 bg-brand-yellow text-black border-4 border-black font-mono font-bold text-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all"
-            >
-              START A PROJECT
-            </Link>
-            <Link 
-              href="/#portfolio" 
-              className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-black border-4 border-black font-mono font-bold text-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all"
-            >
-              VIEW PORTFOLIO
-            </Link>
-          </div>
-        </motion.div>
+        {!isGameMode && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3, duration: 1 }}
+            className="max-w-2xl mt-12 pointer-events-auto"
+          >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/#contact" 
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-brand-yellow text-black border-4 border-black font-mono font-bold text-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all pacman-wall"
+              >
+                START A PROJECT
+              </Link>
+              <Link 
+                href="/#portfolio" 
+                className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-black border-4 border-black font-mono font-bold text-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all pacman-wall"
+              >
+                VIEW PORTFOLIO
+              </Link>
+            </div>
+          </motion.div>
+        )}
       </motion.div>
 
     </section>

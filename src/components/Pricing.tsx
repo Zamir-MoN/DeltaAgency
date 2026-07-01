@@ -80,7 +80,7 @@ export default function Pricing() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto items-center">
           {plans.map((plan, idx) => (
             <motion.div
               key={plan.name}
@@ -107,7 +107,7 @@ export default function Pricing() {
                 {plan.description}
               </p>
               
-              <div className="text-5xl font-space font-black text-black mb-8 border-b-4 border-black pb-8">
+              <div className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-space font-black text-black mb-8 border-b-4 border-black pb-8 break-words">
                 {plan.price}
               </div>
 

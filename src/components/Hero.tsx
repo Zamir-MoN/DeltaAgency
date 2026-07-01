@@ -80,7 +80,7 @@ export default function Hero() {
 
       {/* Score Display */}
       <AnimatePresence>
-        {score > 0 && (
+        {!isGameMode && score > 0 && (
           <motion.div 
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ export default function Hero() {
 
       {/* Game Over Display */}
       <AnimatePresence>
-        {isGameOver && (
+        {!isGameMode && isGameOver && (
           <motion.div 
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: 1 }}

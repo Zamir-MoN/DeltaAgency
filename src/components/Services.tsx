@@ -92,7 +92,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-space font-black text-black uppercase mb-6"
+            className="text-3xl sm:text-5xl md:text-6xl font-space font-black text-black uppercase mb-6 break-words"
           >
             Comprehensive Digital <span className="bg-brand-blue text-white px-2 border-4 border-black inline-block transform -rotate-1">Solutions</span>
           </motion.h3>

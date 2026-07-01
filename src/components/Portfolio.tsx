@@ -133,11 +133,11 @@ export default function Portfolio() {
                       {project.description}
                     </p>
                     
-                    <div className="flex gap-4">
-                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-5 py-2.5 transition-colors">
+                    <div className="flex flex-wrap gap-4">
+                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-4 py-2.5 transition-colors">
                         Case Study <ArrowRight size={16} />
                       </button>
-                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-black bg-white border-2 border-black hover:bg-brand-yellow px-5 py-2.5 transition-colors">
+                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-black bg-white border-2 border-black hover:bg-brand-yellow px-4 py-2.5 transition-colors">
                         Preview <ExternalLink size={16} />
                       </button>
                     </div>

@@ -103,7 +103,7 @@ export default function Pricing() {
               <h4 className="text-3xl font-space font-black text-black uppercase mb-2">
                 {plan.name}
               </h4>
-              <p className="text-black font-space font-bold text-sm mb-6 h-10">
+              <p className="text-black font-space font-bold text-sm mb-6 min-h-[2.5rem]">
                 {plan.description}
               </p>
               

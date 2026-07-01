@@ -74,7 +74,7 @@ export default function Testimonials() {
           {duplicatedTestimonials.map((testimonial, idx) => (
             <div
               key={`${testimonial.name}-${idx}`}
-              className="w-[350px] md:w-[450px] flex-shrink-0 brutal-card p-8 bg-white"
+              className="w-[85vw] sm:w-[350px] md:w-[450px] flex-shrink-0 brutal-card p-6 sm:p-8 bg-white"
             >
               <div className="flex text-black mb-6">
                 {[...Array(testimonial.rating)].map((_, i) => (

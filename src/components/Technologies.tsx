@@ -59,21 +59,21 @@ export default function Technologies() {
           </motion.p>
         </div>
 
-        <div className="w-full lg:w-1/2 flex justify-center gap-4 sm:gap-6 h-[400px] overflow-hidden mask-image-vertical">
+        <div className="w-full lg:w-1/2 flex justify-center items-center gap-2 sm:gap-4 md:gap-6 h-[400px] overflow-hidden mask-image-vertical">
           
-          <motion.div style={{ y: y1 }} className="flex flex-col gap-4 sm:gap-6 pt-10">
+          <motion.div style={{ y: y1 }} className="flex-1 flex flex-col gap-2 sm:gap-4 md:gap-6 pt-10">
             {col1.map((tech) => (
               <TechBadge key={tech} name={tech} />
             ))}
           </motion.div>
 
-          <motion.div style={{ y: y2 }} className="flex flex-col gap-4 sm:gap-6">
+          <motion.div style={{ y: y2 }} className="flex-1 flex flex-col gap-2 sm:gap-4 md:gap-6">
             {col2.map((tech) => (
               <TechBadge key={tech} name={tech} />
             ))}
           </motion.div>
 
-          <motion.div style={{ y: y3 }} className="flex flex-col gap-4 sm:gap-6 pt-20">
+          <motion.div style={{ y: y3 }} className="flex-1 flex flex-col gap-2 sm:gap-4 md:gap-6 pt-20">
             {col3.map((tech) => (
               <TechBadge key={tech} name={tech} />
             ))}
@@ -95,8 +95,9 @@ export default function Technologies() {
 
 function TechBadge({ name }: { name: string }) {
   return (
-    <div className="brutal-card px-6 py-4 bg-white flex items-center justify-center text-center whitespace-nowrap">
-      <span className="text-black font-space font-black uppercase tracking-wide">{name}</span>
+    <div className="brutal-card px-2 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 bg-white flex items-center justify-center text-center">
+      <span className="text-black font-space font-black uppercase tracking-wide text-[10px] sm:text-xs md:text-base leading-tight">{name}</span>
     </div>
   );
 }
+

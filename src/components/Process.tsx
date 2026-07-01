@@ -87,7 +87,7 @@ export default function Process() {
                     <motion.div
                       initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="brutal-card p-6 bg-white"
                     >
@@ -101,7 +101,7 @@ export default function Process() {
                     <motion.div
                       initial={{ scale: 0 }}
                       whileInView={{ scale: 1 }}
-                      viewport={{ once: true, margin: "-100px" }}
+                      viewport={{ once: true }}
                       transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
                       className="text-black"
                     >
@@ -114,7 +114,7 @@ export default function Process() {
                     <motion.div
                       initial={{ opacity: 0, x: 50 }}
                       whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
+                      viewport={{ once: true }}
                       transition={{ duration: 0.4, ease: "easeOut" }}
                       className="brutal-card p-6 bg-white"
                     >

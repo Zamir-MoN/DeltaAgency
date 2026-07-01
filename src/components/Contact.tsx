@@ -2,10 +2,11 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Send } from "lucide-react";
+import { MapPin, Phone, Mail, Send, ChevronDown } from "lucide-react";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isMapInteractive, setIsMapInteractive] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,15 +81,22 @@ export default function Contact() {
             </div>
 
             {/* Map Placeholder */}
-            <div className="w-full h-64 border-4 border-black bg-white relative group cursor-pointer shadow-[8px_8px_0_0_#000]">
-              <div className="absolute inset-0 bg-brand-blue/20 group-hover:bg-transparent transition-colors duration-500 z-10 flex items-center justify-center pointer-events-none">
-                 <span className="text-white font-space font-black uppercase text-xl px-6 py-2 bg-black border-4 border-white group-hover:opacity-0 transition-opacity duration-300">View on Map</span>
-              </div>
+            <div 
+              className="w-full h-64 border-4 border-black bg-white relative shadow-[8px_8px_0_0_#000]"
+              onMouseLeave={() => setIsMapInteractive(false)}
+            >
+              {!isMapInteractive && (
+                <div 
+                  className="absolute inset-0 bg-brand-blue/20 z-10 flex items-center justify-center cursor-pointer"
+                  onClick={() => setIsMapInteractive(true)}
+                >
+                   <span className="text-white font-space font-black uppercase text-xl px-6 py-2 bg-black border-4 border-white hover:bg-brand-pink hover:text-black transition-colors duration-300">Interact with Map</span>
+                </div>
+              )}
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d100939.98555098464!2d-122.5076401!3d37.757815!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80859a6d00690021%3A0x4a501367f076adff!2sSan%20Francisco%2C%20CA!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
+                className="w-full h-full"
+                style={{ border: 0, pointerEvents: isMapInteractive ? 'auto' : 'none' }}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
@@ -122,26 +130,36 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="block text-lg font-space font-black uppercase text-black mb-2">Budget</label>
-                  <select className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none">
-                    <option value="" disabled selected>Select a budget</option>
-                    <option value="5k-10k">$5k - $10k</option>
-                    <option value="10k-25k">$10k - $25k</option>
-                    <option value="25k-50k">$25k - $50k</option>
-                    <option value="50k+">$50k+</option>
-                  </select>
+                  <div className="relative">
+                    <select defaultValue="" className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none pr-12">
+                      <option value="" disabled>Select a budget</option>
+                      <option value="5k-10k">$5k - $10k</option>
+                      <option value="10k-25k">$10k - $25k</option>
+                      <option value="25k-50k">$25k - $50k</option>
+                      <option value="50k+">$50k+</option>
+                    </select>
+                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                      <ChevronDown size={24} />
+                    </div>
+                  </div>
                 </div>
               </div>
 
               <div className="mb-6">
                 <label className="block text-lg font-space font-black uppercase text-black mb-2">Service Required</label>
-                <select className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none">
-                  <option value="" disabled selected>What can we help you with?</option>
-                  <option value="web">Website Development</option>
-                  <option value="branding">Brand Identity</option>
-                  <option value="ai">AI Automation</option>
-                  <option value="app">App Development</option>
-                  <option value="other">Other</option>
-                </select>
+                <div className="relative">
+                  <select defaultValue="" className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none pr-12">
+                    <option value="" disabled>What can we help you with?</option>
+                    <option value="web">Website Development</option>
+                    <option value="branding">Brand Identity</option>
+                    <option value="ai">AI Automation</option>
+                    <option value="app">App Development</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
+                    <ChevronDown size={24} />
+                  </div>
+                </div>
               </div>
 
               <div className="mb-8">
@@ -158,7 +176,7 @@ export default function Contact() {
                   <motion.div
                     animate={{ rotate: 360 }}
                     transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
-                    className="w-6 h-6 border-4 border-black/30 border-t-black rounded-full"
+                    className="w-6 h-6 border-4 border-white/30 border-t-white rounded-full"
                   />
                 ) : (
                   <>

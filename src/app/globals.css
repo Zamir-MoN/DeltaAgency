@@ -1,0 +1,125 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #F4F4F0;
+  --color-foreground: #000000;
+  
+  --color-brand-bg-1: #F4F4F0;
+  --color-brand-bg-2: #FFFFFF;
+  --color-brand-bg-3: #EAEAEA;
+  --color-brand-bg-4: #D4D4D4;
+  
+  --color-brand-blue: #3B82F6;
+  --color-brand-purple: #8B5CF6;
+  --color-brand-cyan: #06B6D4;
+  --color-brand-yellow: #FACC15;
+  --color-brand-pink: #EC4899;
+  --color-brand-green: #22C55E;
+  
+  --color-brand-text-primary: #000000;
+  --color-brand-text-secondary: #333333;
+  
+  --color-brand-border: #000000;
+  
+  --font-space: var(--font-space-grotesk), sans-serif;
+  --font-inter: var(--font-inter), sans-serif;
+  --font-logo: var(--font-custom-logo), sans-serif;
+}
+
+:root {
+  --background: #F4F4F0;
+  --foreground: #000000;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  background-color: #F4F4F0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-space);
+}
+
+/* Brutalism Utilities (Replacing Glassmorphism) */
+.glass {
+  background: #FFFFFF;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0px #000000;
+  border-radius: 0px;
+}
+
+.glass-panel {
+  background: #FFFFFF;
+  border: 4px solid #000000;
+  box-shadow: 12px 12px 0px #000000;
+  border-radius: 0px;
+}
+
+.glass-nav {
+  background: #F4F4F0;
+  border-bottom: 4px solid #000000;
+}
+
+.brutal-card {
+  background: #FFFFFF;
+  border: 4px solid #000000;
+  box-shadow: 8px 8px 0px #000000;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.brutal-card:hover {
+  transform: translate(-4px, -4px);
+  box-shadow: 12px 12px 0px #000000;
+}
+
+.brutal-btn {
+  background: #FACC15;
+  border: 4px solid #000000;
+  box-shadow: 6px 6px 0px #000000;
+  color: #000000;
+  font-weight: 700;
+  transition: all 0.1s ease;
+}
+
+.brutal-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.brutal-btn:active {
+  transform: translate(6px, 6px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+.text-gradient {
+  /* Removed gradient for brutalism, just solid black or bright color */
+  color: #3B82F6;
+  text-shadow: 4px 4px 0px #000000;
+}
+
+.glow-hover {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glow-hover:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #F4F4F0;
+  border-left: 4px solid #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #FACC15;
+  border: 4px solid #000000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3B82F6;
+}

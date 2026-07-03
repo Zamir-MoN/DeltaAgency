@@ -55,7 +55,7 @@ export default function Testimonials() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-6"
+          className="text-3xl md:text-5xl font-space font-black text-black uppercase mb-6"
         >
           What Our <span className="bg-brand-blue text-white px-2 border-4 border-black inline-block transform -rotate-2">Partners Say</span>
         </motion.h3>

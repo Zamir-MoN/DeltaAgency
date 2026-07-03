@@ -60,13 +60,13 @@ export default function About() {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <h2 className="text-sm font-space font-black text-black uppercase tracking-widest mb-4 bg-white border-2 border-black px-3 py-1 inline-block shadow-[4px_4px_0_0_#000]">About Delta X</h2>
-            <h3 className="text-4xl md:text-5xl lg:text-6xl font-space font-black text-black leading-tight mb-6 uppercase">
+            <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-space font-black text-black leading-tight mb-6 uppercase">
               We engineer the <span className="bg-brand-pink text-white px-2 border-4 border-black inline-block transform rotate-2">Future</span> of digital.
             </h3>
-            <p className="text-xl font-space font-bold text-black leading-relaxed mb-8 bg-white border-4 border-black p-4 shadow-[6px_6px_0_0_#000]">
+            <p className="text-lg md:text-xl font-space font-bold text-black leading-relaxed mb-8 bg-white border-4 border-black p-4 shadow-[6px_6px_0_0_#000]">
               At Delta X, we don't just build websites; we craft immersive digital experiences that elevate brands. By merging cutting-edge technologies like AI and web graphics with premium aesthetics, we deliver solutions that are both stunning and highly functional.
             </p>
-            <p className="text-xl font-space font-bold text-black leading-relaxed">
+            <p className="text-lg md:text-xl font-space font-bold text-black leading-relaxed">
               Our multidisciplinary team of designers, engineers, and strategists work collaboratively to transform complex challenges into elegant, intuitive products that drive growth and conversions for modern businesses.
             </p>
           </motion.div>
@@ -82,7 +82,7 @@ export default function About() {
                 transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
                 className="brutal-card p-8 bg-white flex flex-col justify-center items-center text-center"
               >
-                <div className="text-5xl md:text-6xl font-space font-black text-black mb-2 flex items-center">
+                <div className="text-4xl md:text-6xl font-space font-black text-black mb-2 flex items-center">
                   <AnimatedCounter value={stat.value} />
                   <span className="text-brand-blue">{stat.suffix}</span>
                 </div>

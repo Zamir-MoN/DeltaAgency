@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
-import { useGameMode } from "@/context/GameModeContext";
 
 export default function SmoothScroll({
   children,
@@ -10,7 +9,6 @@ export default function SmoothScroll({
   children: React.ReactNode;
 }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);
-  const { isGameMode } = useGameMode();
 
   useEffect(() => {
     const l = new Lenis({
@@ -39,12 +37,8 @@ export default function SmoothScroll({
 
   useEffect(() => {
     if (!lenis) return;
-    if (isGameMode) {
-      lenis.stop();
-    } else {
-      lenis.start();
-    }
-  }, [isGameMode, lenis]);
+    lenis.start();
+  }, [lenis]);
 
   return <>{children}</>;
 }

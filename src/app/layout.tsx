@@ -7,7 +7,6 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Preloader from "@/components/Preloader";
-import { GameModeProvider } from "@/context/GameModeContext";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -41,14 +40,12 @@ export default function RootLayout({
       className={`${inter.variable} ${spaceGrotesk.variable} ${customLogoFont.variable} dark antialiased`}
     >
       <body className="min-h-screen bg-brand-bg-1 text-brand-text-primary flex flex-col selection:bg-brand-blue/30">
-        <GameModeProvider>
-          <SmoothScroll>
-            <Preloader />
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </SmoothScroll>
-        </GameModeProvider>
+        <SmoothScroll>
+          <Preloader />
+          <Navbar />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );

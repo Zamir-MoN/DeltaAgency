@@ -87,7 +87,7 @@ export default function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap gap-4"
+            className="flex flex-wrap justify-center md:justify-start gap-4"
           >
             {filters.map((filter) => (
               <button
@@ -115,7 +115,7 @@ export default function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
-                className="group relative border-4 border-black bg-white h-[450px] cursor-pointer shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-200"
+                className="group relative border-4 border-black bg-white h-[350px] md:h-[450px] cursor-pointer shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-200"
               >
                 {/* Brutalist Pattern Background */}
                 <div className={`absolute inset-0 bg-brand-cyan opacity-20`} />

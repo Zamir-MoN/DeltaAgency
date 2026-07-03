@@ -33,7 +33,7 @@ export default function Contact() {
               <h2 className="text-sm font-space font-black text-black uppercase tracking-widest mb-4 bg-brand-pink inline-block px-3 py-1 border-2 border-black">
                 Get in Touch
               </h2>
-              <h3 className="text-5xl md:text-6xl font-space font-black text-black uppercase mb-6">
+              <h3 className="text-4xl sm:text-5xl md:text-6xl font-space font-black text-black uppercase mb-6">
                 Let's Build the <span className="bg-brand-cyan text-white px-2 border-4 border-black inline-block mt-2 transform rotate-2">Future</span>
               </h3>
               <p className="text-xl font-space font-bold text-black leading-relaxed max-w-md">
@@ -82,7 +82,7 @@ export default function Contact() {
 
             {/* Map Placeholder */}
             <div 
-              className="w-full h-64 border-4 border-black bg-white relative shadow-[8px_8px_0_0_#000]"
+              className="w-full h-48 md:h-64 border-4 border-black bg-white relative shadow-[8px_8px_0_0_#000]"
               onMouseLeave={() => setIsMapInteractive(false)}
             >
               {!isMapInteractive && (
@@ -111,7 +111,7 @@ export default function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
           >
-            <form onSubmit={handleSubmit} className="bg-brand-yellow border-4 border-black p-8 md:p-12 h-full flex flex-col justify-center shadow-[12px_12px_0_0_#000]">
+            <form onSubmit={handleSubmit} className="bg-brand-yellow border-4 border-black p-6 md:p-12 h-full flex flex-col justify-center shadow-[12px_12px_0_0_#000]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-lg font-space font-black uppercase text-black mb-2">Full Name</label>

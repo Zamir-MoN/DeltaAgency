@@ -59,7 +59,7 @@ export default function Process() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-5xl md:text-6xl font-space font-black text-black uppercase mb-6"
+            className="text-4xl sm:text-5xl md:text-6xl font-space font-black text-black uppercase mb-6"
           >
             Our Proven <span className="bg-brand-blue text-white px-2 border-4 border-black inline-block transform rotate-1">Process</span>
           </motion.h3>
@@ -110,7 +110,7 @@ export default function Process() {
                   </div>
 
                   {/* Mobile Content */}
-                  <div className="md:hidden w-full pl-24 pr-4">
+                  <div className="md:hidden w-full pl-20 pr-4">
                     <motion.div
                       initial={{ opacity: 0, x: 50 }}
                       whileInView={{ opacity: 1, x: 0 }}

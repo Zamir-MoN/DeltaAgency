@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ArrowRight, X } from "lucide-react";
 
@@ -61,6 +61,17 @@ export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
+  useEffect(() => {
+    if (selectedProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [selectedProject]);
+
   const filteredProjects = projects.filter(
     (project) => activeFilter === "All" || project.category === activeFilter
   );
@@ -68,7 +79,7 @@ export default function Portfolio() {
   return (
     <section id="portfolio" className="py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-8 md:gap-8">
           <div className="max-w-2xl bg-white border-4 border-black p-6 shadow-[6px_6px_0_0_#000]">
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -94,13 +105,13 @@ export default function Portfolio() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="flex flex-wrap justify-center md:justify-start gap-4"
+           className="flex flex-wrap justify-center md:justify-end gap-x-2 gap-y-4 md:gap-4"
           >
             {filters.map((filter) => (
               <button
                 key={filter}
                 onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-2 text-sm font-space font-black uppercase transition-all duration-200 border-4 border-black shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none ${
+                className={`px-3 md:px-6 py-2 text-xs md:text-sm font-space font-black uppercase transition-all duration-200 border-4 border-black shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none ${
                   activeFilter === filter
                     ? "bg-black text-white"
                     : "bg-white text-black hover:bg-brand-yellow"
@@ -136,22 +147,22 @@ export default function Portfolio() {
                   )}
                 </div>
 
-                <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
-                  <div className="bg-white/60 backdrop-blur-sm border-4 border-black p-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 shadow-[6px_6px_0_0_#000]">
-                    <span className="inline-block px-3 py-1 mb-4 text-xs font-space font-black uppercase tracking-wider text-black bg-brand-yellow border-2 border-black">
+                <div className="absolute inset-0 p-4 md:p-8 flex flex-col justify-end z-10">
+                  <div className="w-full bg-white/60 backdrop-blur-sm border-4 border-black p-4 md:p-6 transform translate-y-4 md:translate-y-8 group-hover:translate-y-0 transition-transform duration-300 shadow-[4px_4px_0_0_#000] md:shadow-[6px_6px_0_0_#000]">
+                    <span className="inline-block px-2 py-1 md:px-3 md:py-1 mb-2 md:mb-4 text-[10px] md:text-xs font-space font-black uppercase tracking-wider text-black bg-brand-yellow border-2 border-black">
                       {project.category}
                     </span>
-                    <h4 className="text-3xl font-space font-black text-black mb-2 uppercase">
+                    <h4 className="text-xl md:text-3xl font-space font-black text-black mb-2 uppercase break-words">
                       {project.title}
                     </h4>
-                    <p className="text-black font-space font-bold mb-6">
+                    <p className="text-sm md:text-base text-black font-space font-bold mb-4 md:mb-6 line-clamp-2 md:line-clamp-none">
                       {project.description}
                     </p>
                     
-                    <div className="flex flex-wrap gap-4">
+                    <div className="flex flex-wrap gap-2 md:gap-4">
                       <button 
                         onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}
-                        className="flex items-center gap-2 text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-4 py-2.5 transition-colors"
+                        className="flex items-center gap-1 md:gap-2 text-xs md:text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-3 py-2 md:px-4 md:py-2.5 transition-colors"
                       >
                         Case Study <ArrowRight size={16} />
                       </button>
@@ -176,7 +187,7 @@ export default function Portfolio() {
       {/* Case Study Bottom Drawer */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[100000] flex items-end justify-center pointer-events-none">
+          <div data-lenis-prevent className="fixed inset-0 z-[100000] flex items-end justify-center pointer-events-none">
             {/* Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}

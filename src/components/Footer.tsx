@@ -30,11 +30,11 @@ export default function Footer() {
           <div>
             <h4 className="text-black font-space font-black uppercase text-xl mb-6">Navigation</h4>
             <ul className="space-y-4">
-              <FooterLink href="#services">Services</FooterLink>
-              <FooterLink href="#portfolio">Portfolio</FooterLink>
-              <FooterLink href="#process">Process</FooterLink>
-              <FooterLink href="#about">About Us</FooterLink>
-              <FooterLink href="#contact">Contact</FooterLink>
+              <FooterLink href="/#services">Services</FooterLink>
+              <FooterLink href="/portfolio">Portfolio</FooterLink>
+              <FooterLink href="/#process">Process</FooterLink>
+              <FooterLink href="/#about">About Us</FooterLink>
+              <FooterLink href="/#contact">Contact</FooterLink>
             </ul>
           </div>
 

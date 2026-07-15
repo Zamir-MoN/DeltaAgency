@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ArrowRight } from "lucide-react";
+import { ExternalLink, ArrowRight, X } from "lucide-react";
 
-const filters = ["All", "Website", "Branding", "App", "Automation", "AI"];
+const filters = ["All", "Website", "DX & Branding", "App", "Automation", "AI"];
 
 const projects = [
   {
@@ -13,13 +13,15 @@ const projects = [
     category: "Website",
     description: "A premium Web3 financial dashboard with real-time analytics.",
     color: "from-blue-500/20 to-purple-500/20",
+    image: "https://themewagon.com/wp-content/uploads/2026/05/sarab.webp",
   },
   {
     id: 2,
     title: "Aura Identity",
-    category: "Branding",
+    category: "DX & Branding",
     description: "Complete brand overhaul for a modern lifestyle company.",
     color: "from-pink-500/20 to-orange-500/20",
+    image: "https://market-resized.envatousercontent.com/previews/files/296280653/preview.jpg?w=590&h=300&cf_fit=crop&crop=top&format=auto&q=85&s=e76c8181a9122831b0a2abc1e3bcc27e9f7b2e1b391328cc559ed088f3ef5164",
   },
   {
     id: 3,
@@ -27,6 +29,7 @@ const projects = [
     category: "AI",
     description: "Generative AI platform for seamless content creation.",
     color: "from-cyan-500/20 to-blue-500/20",
+    image: "https://market-resized.envatousercontent.com/previews/files/660085031/01_bridge.png?w=590&h=300&cf_fit=crop&crop=top&format=auto&q=85&s=891ed034b06fa300532f3b18e447b46c279c1e9c4aa4b273505bb8643a1c664a",
   },
   {
     id: 4,
@@ -34,6 +37,7 @@ const projects = [
     category: "App",
     description: "Cross-platform productivity app with offline first architecture.",
     color: "from-emerald-500/20 to-teal-500/20",
+    image: "https://www.themezaa.com/wp-content/uploads/2020/02/best-creative-digital-agency-wordpress-themes.jpg",
   },
   {
     id: 5,
@@ -41,6 +45,7 @@ const projects = [
     category: "Automation",
     description: "Enterprise workflow automation reducing manual tasks by 80%.",
     color: "from-indigo-500/20 to-purple-500/20",
+    image: "https://www.themezaa.com/wp-content/uploads/2020/02/agencium-best-creative-digital-agency-wordpress-themes.jpg",
   },
   {
     id: 6,
@@ -48,11 +53,13 @@ const projects = [
     category: "Website",
     description: "High-conversion headless Shopify storefront.",
     color: "from-red-500/20 to-rose-500/20",
+    image: "https://market-resized.envatousercontent.com/previews/files/456855774/02_uncode.png?w=590&h=300&cf_fit=crop&crop=top&format=auto&q=85&s=fd9820ffd933ea4652c35727dcacf168bed87bdb4408a6bec0d63aa56bf12514",
   },
 ];
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
+  const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   const filteredProjects = projects.filter(
     (project) => activeFilter === "All" || project.category === activeFilter
@@ -117,12 +124,20 @@ export default function Portfolio() {
                 transition={{ duration: 0.3 }}
                 className="group relative border-4 border-black bg-white h-[350px] md:h-[450px] cursor-pointer shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-200"
               >
-                {/* Brutalist Pattern Background */}
-                <div className={`absolute inset-0 bg-brand-cyan opacity-20`} />
-                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-50" />
+                {/* Water Flow Background Effect */}
+                <div className="absolute inset-0 overflow-hidden z-0 bg-brand-bg-1">
+                  <div className="absolute inset-0 bg-brand-cyan opacity-20" />
+                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-[250%] pb-[250%] group-hover:top-[-20%] transition-all duration-[800ms] ease-in-out">
+                    <div className="absolute inset-0 rounded-[40%] bg-brand-blue/40 animate-[spin_6s_linear_infinite]" />
+                    <div className="absolute inset-0 rounded-[45%] bg-brand-cyan/60 animate-[spin_7s_linear_infinite_reverse]" />
+                  </div>
+                  {project.image && (
+                    <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms]" />
+                  )}
+                </div>
 
-                <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                  <div className="bg-white border-4 border-black p-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 shadow-[6px_6px_0_0_#000]">
+                <div className="absolute inset-0 p-8 flex flex-col justify-end z-10">
+                  <div className="bg-white/60 backdrop-blur-sm border-4 border-black p-6 transform translate-y-8 group-hover:translate-y-0 transition-transform duration-300 shadow-[6px_6px_0_0_#000]">
                     <span className="inline-block px-3 py-1 mb-4 text-xs font-space font-black uppercase tracking-wider text-black bg-brand-yellow border-2 border-black">
                       {project.category}
                     </span>
@@ -134,12 +149,21 @@ export default function Portfolio() {
                     </p>
                     
                     <div className="flex flex-wrap gap-4">
-                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-4 py-2.5 transition-colors">
+                      <button 
+                        onClick={(e) => { e.stopPropagation(); setSelectedProject(project); }}
+                        className="flex items-center gap-2 text-sm font-space font-black uppercase text-white bg-black border-2 border-black hover:bg-brand-blue px-4 py-2.5 transition-colors"
+                      >
                         Case Study <ArrowRight size={16} />
                       </button>
-                      <button className="flex items-center gap-2 text-sm font-space font-black uppercase text-black bg-white border-2 border-black hover:bg-brand-yellow px-4 py-2.5 transition-colors">
+                      <a 
+                        href="#"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="flex items-center gap-2 text-sm font-space font-black uppercase text-black bg-white border-2 border-black hover:bg-brand-yellow px-4 py-2.5 transition-colors"
+                      >
                         Preview <ExternalLink size={16} />
-                      </button>
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -148,6 +172,84 @@ export default function Portfolio() {
           </AnimatePresence>
         </motion.div>
       </div>
+
+      {/* Case Study Bottom Drawer */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[100000] flex items-end justify-center pointer-events-none">
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setSelectedProject(null)}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto cursor-pointer"
+            />
+            
+            {/* Drawer */}
+            {/* Drawer */}
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              data-lenis-prevent
+              className="w-[95vw] max-w-[1400px] bg-brand-bg-1 border-t-8 border-x-8 border-black h-[90vh] overflow-y-auto pointer-events-auto relative rounded-t-3xl shadow-[0_-10px_0_0_rgba(0,0,0,0.2)] flex flex-col"
+            >
+              {/* Drawer Header */}
+              <div className="w-full flex justify-between items-center px-8 md:px-12 py-6 border-b-8 border-black sticky top-0 bg-brand-bg-1 z-50">
+                <h3 className="text-2xl md:text-4xl font-space font-black uppercase text-black">
+                  Case Study
+                </h3>
+                <button
+                  onClick={() => setSelectedProject(null)}
+                  className="p-2 bg-white border-4 border-black hover:bg-brand-red hover:text-white transition-colors shadow-[4px_4px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              
+              <div className="w-full flex flex-col items-start px-8 md:px-12 pt-8 pb-16">
+                {selectedProject.image && (
+                  <div className="w-full border-8 border-black shadow-[8px_8px_0_0_#000] md:shadow-[16px_16px_0_0_#000] mb-12 overflow-hidden bg-white max-h-[60vh]">
+                    <img src={selectedProject.image} alt={selectedProject.title} className="w-full h-full object-cover object-top" />
+                  </div>
+                )}
+                
+                <div className="w-full flex flex-col items-start">
+                  <span className="inline-block px-4 py-2 mb-6 text-sm font-space font-black uppercase tracking-wider text-black bg-brand-yellow border-4 border-black shadow-[4px_4px_0_0_#000]">
+                    {selectedProject.category}
+                  </span>
+                  <h2 className="text-4xl md:text-6xl font-space font-black text-black mb-6 uppercase">
+                    {selectedProject.title}
+                  </h2>
+                  <p className="text-xl md:text-2xl font-space font-bold text-black/80 mb-10 leading-relaxed">
+                    {selectedProject.description}
+                  </p>
+                  
+                  <div className="prose prose-lg prose-black max-w-none font-space font-medium mb-12">
+                    <p className="mb-4">
+                      This is a detailed case study for {selectedProject.title}. We approached this project with a brutalist yet functional design philosophy, focusing on high conversion rates and an unforgettable user experience.
+                    </p>
+                    <p>
+                      By leveraging modern web technologies and bold aesthetics, we helped them achieve a 300% increase in user engagement and drastically improved their brand presence online.
+                    </p>
+                  </div>
+                  
+                  <a
+                    href="#"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-3 text-xl font-space font-black uppercase text-white bg-brand-blue border-4 border-black hover:bg-brand-cyan px-8 py-4 transition-all shadow-[8px_8px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[12px_12px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none"
+                  >
+                    Visit Live Site <ExternalLink size={24} />
+                  </a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

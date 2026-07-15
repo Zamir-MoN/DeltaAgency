@@ -43,7 +43,9 @@ export default function RootLayout({
         <SmoothScroll>
           <Preloader />
           <Navbar />
-          <main className="flex-grow">{children}</main>
+          <main className="flex-grow flex flex-col">
+            {children}
+          </main>
           <Footer />
         </SmoothScroll>
       </body>

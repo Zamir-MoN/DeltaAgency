@@ -68,7 +68,7 @@ export default function Hero() {
   };
 
   return (
-    <section ref={containerRef} className={`relative min-h-screen flex items-center justify-center pt-20 bg-brand-bg-1 bg-[url('/grid.svg')] border-b-8 border-black overflow-hidden`}>
+    <section ref={containerRef} className={`relative min-h-screen flex items-center justify-center pt-20 bg-brand-bg-1 border-b-8 border-black overflow-hidden`}>
       
       <FloatingTechElements 
         customDrawings={customDrawings} 
@@ -244,7 +244,7 @@ export default function Hero() {
               START A PROJECT
             </Link>
             <Link 
-              href="/#portfolio" 
+              href="/portfolio" 
               className="group relative inline-flex items-center justify-center px-8 py-4 bg-white text-black border-4 border-black font-mono font-bold text-lg hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[8px_8px_0_rgba(0,0,0,1)] active:translate-y-1 active:translate-x-1 active:shadow-[0px_0px_0_rgba(0,0,0,1)] transition-all"
             >
               VIEW PORTFOLIO

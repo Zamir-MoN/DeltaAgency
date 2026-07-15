@@ -9,11 +9,11 @@ import clsx from "clsx";
 import Image from "next/image";
 
 const navLinks = [
-  { name: "Services", href: "#services" },
-  { name: "Portfolio", href: "#portfolio" },
-  { name: "Process", href: "#process" },
-  { name: "About", href: "#about" },
-  { name: "Testimonials", href: "#testimonials" },
+  { name: "Services", href: "/#services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Process", href: "/#process" },
+  { name: "About", href: "/#about" },
+  { name: "Testimonials", href: "/#testimonials" },
 ];
 
 export default function Navbar() {
@@ -80,13 +80,13 @@ export default function Navbar() {
 
         <div className="hidden lg:flex items-center space-x-6">
           <Link
-            href="#contact"
+            href="/#contact"
             className="text-sm font-space font-bold uppercase hover:-translate-y-1 transition-transform duration-200 text-black hover:text-brand-blue"
           >
             Contact
           </Link>
           <Link
-            href="#contact"
+            href="/#contact"
             className="brutal-btn px-6 py-2.5 text-sm uppercase"
           >
             Start Project
@@ -139,7 +139,7 @@ export default function Navbar() {
                 className="w-full max-w-sm pt-8 border-t-4 border-black flex flex-col space-y-4 text-center mt-8"
               >
                 <Link
-                  href="#contact"
+                  href="/#contact"
                   onClick={() => setMobileMenuOpen(false)}
                   className="w-full brutal-btn bg-white py-4 text-xl uppercase"
                 >

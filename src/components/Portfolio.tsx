@@ -60,6 +60,7 @@ const projects = [
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [mobileRevealedCard, setMobileRevealedCard] = useState<number | null>(null);
 
   useEffect(() => {
     if (selectedProject) {
@@ -77,7 +78,7 @@ export default function Portfolio() {
   );
 
   return (
-    <section id="portfolio" className="py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
+    <section id="portfolio" className="pt-8 pb-16 md:py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-8 md:gap-8">
           <div className="max-w-2xl bg-white border-4 border-black p-6 shadow-[6px_6px_0_0_#000]">
@@ -125,7 +126,9 @@ export default function Portfolio() {
 
         <motion.div layout className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project) => (
+            {filteredProjects.map((project) => {
+              const isRevealed = mobileRevealedCard === project.id;
+              return (
               <motion.div
                 key={project.id}
                 layout
@@ -133,22 +136,23 @@ export default function Portfolio() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.3 }}
+                onClick={() => setMobileRevealedCard(isRevealed ? null : project.id)}
                 className="group relative border-4 border-black bg-white h-[350px] md:h-[450px] cursor-pointer shadow-[8px_8px_0_0_#000] hover:shadow-[12px_12px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 transition-all duration-200"
               >
                 {/* Water Flow Background Effect */}
                 <div className="absolute inset-0 overflow-hidden z-0 bg-brand-bg-1">
                   <div className="absolute inset-0 bg-brand-cyan opacity-20" />
-                  <div className="absolute top-[100%] left-1/2 -translate-x-1/2 w-[250%] pb-[250%] group-hover:top-[-20%] transition-all duration-[800ms] ease-in-out">
+                  <div className={`absolute left-1/2 -translate-x-1/2 w-[250%] pb-[250%] transition-all duration-[800ms] ease-in-out lg:group-hover:top-[-20%] ${isRevealed ? 'top-[-20%]' : 'top-[100%]'}`}>
                     <div className="absolute inset-0 rounded-[40%] bg-brand-blue/40 animate-[spin_6s_linear_infinite]" />
                     <div className="absolute inset-0 rounded-[45%] bg-brand-cyan/60 animate-[spin_7s_linear_infinite_reverse]" />
                   </div>
                   {project.image && (
-                    <img src={project.image} alt={project.title} className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-[800ms]" />
+                    <img src={project.image} alt={project.title} className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-[800ms] lg:group-hover:opacity-100 ${isRevealed ? 'opacity-100' : 'opacity-0'}`} />
                   )}
                 </div>
 
                 <div className="absolute inset-0 p-4 md:p-8 flex flex-col justify-end z-10">
-                  <div className="w-full bg-white/60 backdrop-blur-sm border-4 border-black p-4 md:p-6 transform translate-y-4 md:translate-y-8 group-hover:translate-y-0 transition-transform duration-300 shadow-[4px_4px_0_0_#000] md:shadow-[6px_6px_0_0_#000]">
+                  <div className={`w-full bg-white/60 backdrop-blur-sm border-4 border-black p-4 md:p-6 transform transition-transform duration-300 shadow-[4px_4px_0_0_#000] md:shadow-[6px_6px_0_0_#000] lg:group-hover:translate-y-0 ${isRevealed ? 'translate-y-0' : 'translate-y-4 md:translate-y-8'}`}>
                     <span className="inline-block px-2 py-1 md:px-3 md:py-1 mb-2 md:mb-4 text-[10px] md:text-xs font-space font-black uppercase tracking-wider text-black bg-brand-yellow border-2 border-black">
                       {project.category}
                     </span>
@@ -179,7 +183,7 @@ export default function Portfolio() {
                   </div>
                 </div>
               </motion.div>
-            ))}
+            )})}
           </AnimatePresence>
         </motion.div>
       </div>

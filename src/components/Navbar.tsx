@@ -35,11 +35,11 @@ export default function Navbar() {
         "fixed top-0 left-0 right-0 z-[10000] transition-all duration-300",
         isScrolled 
           ? "bg-white border-b-4 border-black shadow-[0_4px_0_0_#000] py-4"
-          : "bg-transparent py-4 md:py-6"
+          : "bg-transparent py-6"
       )}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between h-14 md:h-10">
-        <Link href="/" className="relative z-50 flex items-center h-full text-4xl font-logo tracking-tighter uppercase text-black">
+      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+        <Link href="/" className="relative z-50 flex items-center text-4xl md:text-5xl font-logo tracking-tighter uppercase text-black">
           <motion.span 
             animate={{
               x: [0, -2, 2, -1, 1, 0],
@@ -94,13 +94,13 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="lg:hidden flex items-center space-x-2 relative z-50">
+        <div className="lg:hidden flex items-center relative z-50">
           <button
-            className="p-2 -mr-2 brutal-btn bg-white text-black border-black"
+            className="w-12 h-12 flex items-center justify-center brutal-btn bg-brand-yellow text-black border-4 border-black p-0 mb-1"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle Menu"
           >
-            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            {mobileMenuOpen ? <X size={28} strokeWidth={3} /> : <Menu size={28} strokeWidth={3} />}
           </button>
         </div>
       </div>

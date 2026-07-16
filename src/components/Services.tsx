@@ -1,55 +1,72 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
-import { Monitor, PenTool, Fingerprint, Bot, Smartphone, Cloud, TrendingUp, Server } from "lucide-react";
+import { useRef, useState, useEffect } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
+import { Monitor, PenTool, Fingerprint, Bot, Smartphone, Cloud, TrendingUp, Server, Check } from "lucide-react";
 
 const services = [
-  { icon: Monitor, title: "Website Development", desc: "High-performance, accessible, and SEO-optimized web experiences." },
-  { icon: PenTool, title: "UI/UX Design", desc: "Intuitive interfaces and engaging user experiences." },
-  { icon: Fingerprint, title: "Brand Identity", desc: "Memorable brand assets and cohesive visual systems." },
-  { icon: Bot, title: "AI Automation", desc: "Intelligent workflows that scale your business operations." },
-  { icon: Smartphone, title: "App Development", desc: "Native and cross-platform mobile applications." },
-  { icon: Cloud, title: "Cloud Solutions", desc: "Scalable infrastructure and cloud-native architecture." },
-  { icon: TrendingUp, title: "Marketing", desc: "Data-driven strategies for digital growth." },
-  { icon: Server, title: "Hosting", desc: "Secure, reliable, and lightning-fast hosting solutions." }
+  { 
+    icon: Monitor, 
+    title: "Website Development", 
+    desc: "High-performance, accessible, and SEO-optimized web experiences.",
+    features: ["Custom Web Applications", "E-Commerce Solutions", "CMS Development", "Performance Optimization"]
+  },
+  { 
+    icon: PenTool, 
+    title: "UI/UX Design", 
+    desc: "Intuitive interfaces and engaging user experiences.",
+    features: ["User Research & Strategy", "Wireframing & Prototyping", "Visual Design Systems", "Usability Testing"]
+  },
+  { 
+    icon: Fingerprint, 
+    title: "Brand Identity", 
+    desc: "Memorable brand assets and cohesive visual systems.",
+    features: ["Logo & Identity Systems", "Brand Guidelines", "Typography & Color Palettes", "Marketing Collateral"]
+  },
+  { 
+    icon: Bot, 
+    title: "AI Automation", 
+    desc: "Intelligent workflows that scale your business operations.",
+    features: ["Custom AI Chatbots", "Workflow Automation", "Machine Learning Integration", "Data Analysis & Insights"]
+  },
+  { 
+    icon: Smartphone, 
+    title: "App Development", 
+    desc: "Native and cross-platform mobile applications.",
+    features: ["iOS & Android Apps", "React Native Development", "App Store Optimization", "Maintenance & Support"]
+  },
+  { 
+    icon: Cloud, 
+    title: "Cloud Solutions", 
+    desc: "Scalable infrastructure and cloud-native architecture.",
+    features: ["AWS/Azure/GCP Setup", "Serverless Architecture", "Database Migration", "Security & Compliance"]
+  },
+  { 
+    icon: TrendingUp, 
+    title: "Marketing", 
+    desc: "Data-driven strategies for digital growth.",
+    features: ["SEO & SEM", "Social Media Campaigns", "Content Marketing", "Analytics & Reporting"]
+  },
+  { 
+    icon: Server, 
+    title: "Hosting", 
+    desc: "Secure, reliable, and lightning-fast hosting solutions.",
+    features: ["Managed Cloud Hosting", "CDN Integration", "24/7 Monitoring", "Automated Backups"]
+  }
 ];
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [rotateX, setRotateX] = useState(0);
-  const [rotateY, setRotateY] = useState(0);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    // Calculate rotation limits (max 10 degrees)
-    const rotateXValue = ((y - centerY) / centerY) * -10;
-    const rotateYValue = ((x - centerX) / centerX) * 10;
-    
-    setRotateX(rotateXValue);
-    setRotateY(rotateYValue);
-  };
-
-  const handleMouseLeave = () => {
-    setRotateX(0);
-    setRotateY(0);
-  };
-
+function ServiceCard({ service, index, onClick }: { service: typeof services[0]; index: number; onClick: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
+      className="h-full flex"
     >
       <div
-        className="brutal-card p-8 h-full flex flex-col bg-white border-4 border-black"
+        className="brutal-card w-full p-8 flex flex-col bg-white border-4 border-black group cursor-pointer transition-transform hover:-translate-y-2 hover:shadow-[8px_8px_0_0_#000]"
+        onClick={onClick}
       >
         <div className="w-16 h-16 bg-brand-yellow border-4 border-black flex items-center justify-center mb-6 text-black shadow-[4px_4px_0_0_#000]">
           <service.icon size={32} />
@@ -64,7 +81,9 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         </p>
         
         <div className="mt-8 flex items-center text-sm font-space font-black text-black uppercase">
-          <span className="bg-black text-white px-3 py-1">Learn more</span>
+          <span className="bg-black text-white px-4 py-2 border-2 border-black group-hover:bg-brand-pink group-hover:text-black group-hover:-translate-y-1 group-hover:-translate-x-1 group-hover:shadow-[4px_4px_0_0_#000] transition-all duration-200">
+            Details
+          </span>
         </div>
       </div>
     </motion.div>
@@ -73,6 +92,16 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
 
 export default function Services() {
   const containerRef = useRef(null);
+  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+
+  useEffect(() => {
+    if (selectedService) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; }
+  }, [selectedService]);
 
   return (
     <section id="services" ref={containerRef} className="py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
@@ -107,12 +136,90 @@ export default function Services() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 auto-rows-fr">
           {services.map((service, idx) => (
-            <ServiceCard key={service.title} service={service} index={idx} />
+            <ServiceCard key={service.title} service={service} index={idx} onClick={() => setSelectedService(service)} />
           ))}
         </div>
       </div>
+
+      <AnimatePresence>
+        {selectedService && (
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-none" data-lenis-prevent>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"
+              onClick={() => setSelectedService(null)}
+            />
+            
+            <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row pointer-events-auto h-auto max-h-[90vh] overflow-y-auto overflow-x-hidden md:overflow-visible">
+              
+              <motion.div
+                initial={{ x: "-100vw", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "-100vw", opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                className="w-full md:w-2/5 bg-brand-yellow border-4 border-black border-b-0 md:border-b-4 md:border-r-0 p-8 md:p-12 flex flex-col justify-center items-center text-center"
+              >
+                <div className="w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-8 shadow-[4px_4px_0_0_#000]">
+                  <selectedService.icon size={48} className="text-black" />
+                </div>
+                <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4">
+                  {selectedService.title}
+                </h3>
+              </motion.div>
+
+              <motion.div
+                initial={{ x: "100vw", opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                exit={{ x: "100vw", opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200, delay: 0.1 }}
+                className="w-full md:w-3/5 bg-white border-4 border-black p-8 md:p-12 flex flex-col shadow-[8px_8px_0_0_#000] relative"
+              >
+                <button 
+                  onClick={() => setSelectedService(null)}
+                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 bg-brand-pink border-4 border-black flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-20 text-black font-black text-xl"
+                >
+                  X
+                </button>
+                
+                <h4 className="text-xl md:text-2xl font-space font-black text-black uppercase mb-6 bg-brand-cyan inline-block px-3 py-1 border-2 border-black w-fit mt-8 md:mt-0">
+                  Service Details
+                </h4>
+                
+                <p className="text-black font-space font-bold text-lg mb-8 leading-relaxed">
+                  {selectedService.desc}
+                </p>
+                
+                <div className="space-y-4 mb-10 flex-grow">
+                  {selectedService.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 bg-brand-yellow text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000]">
+                        <Check size={16} strokeWidth={4} />
+                      </div>
+                      <span className="text-base font-space font-bold text-black leading-relaxed">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={() => {
+                    setSelectedService(null);
+                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black bg-black text-white hover:shadow-[6px_6px_0_0_rgba(236,72,153,1)] hover:bg-brand-pink hover:text-black hover:-translate-y-1 hover:-translate-x-1"
+                >
+                  Get Started
+                </button>
+              </motion.div>
+            </div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

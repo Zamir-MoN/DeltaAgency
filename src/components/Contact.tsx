@@ -1,12 +1,14 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Phone, Mail, Send, ChevronDown } from "lucide-react";
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isMapInteractive, setIsMapInteractive] = useState(false);
+  const [budget, setBudget] = useState("");
+  const [service, setService] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -130,36 +132,34 @@ export default function Contact() {
                 </div>
                 <div>
                   <label className="block text-lg font-space font-black uppercase text-black mb-2">Budget</label>
-                  <div className="relative">
-                    <select defaultValue="" className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none pr-12">
-                      <option value="" disabled>Select a budget</option>
-                      <option value="5k-10k">$5k - $10k</option>
-                      <option value="10k-25k">$10k - $25k</option>
-                      <option value="25k-50k">$25k - $50k</option>
-                      <option value="50k+">$50k+</option>
-                    </select>
-                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                      <ChevronDown size={24} />
-                    </div>
-                  </div>
+                  <CustomSelect 
+                    options={[
+                      { value: "5k-10k", label: "$5k - $10k" },
+                      { value: "10k-25k", label: "$10k - $25k" },
+                      { value: "25k-50k", label: "$25k - $50k" },
+                      { value: "50k+", label: "$50k+" },
+                    ]}
+                    placeholder="Select a budget"
+                    value={budget}
+                    onChange={setBudget}
+                  />
                 </div>
               </div>
 
               <div className="mb-6">
                 <label className="block text-lg font-space font-black uppercase text-black mb-2">Service Required</label>
-                <div className="relative">
-                  <select defaultValue="" className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold focus:outline-none focus:ring-4 focus:ring-brand-pink focus:border-black transition-colors appearance-none pr-12">
-                    <option value="" disabled>What can we help you with?</option>
-                    <option value="web">Website Development</option>
-                    <option value="branding">Brand Identity</option>
-                    <option value="ai">AI Automation</option>
-                    <option value="app">App Development</option>
-                    <option value="other">Other</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-black">
-                    <ChevronDown size={24} />
-                  </div>
-                </div>
+                <CustomSelect 
+                  options={[
+                    { value: "web", label: "Website Development" },
+                    { value: "branding", label: "Brand Identity" },
+                    { value: "ai", label: "AI Automation" },
+                    { value: "app", label: "App Development" },
+                    { value: "other", label: "Other" },
+                  ]}
+                  placeholder="What can we help you with?"
+                  value={service}
+                  onChange={setService}
+                />
               </div>
 
               <div className="mb-8">
@@ -190,5 +190,76 @@ export default function Contact() {
         </div>
       </div>
     </section>
+  );
+}
+
+interface CustomSelectProps {
+  options: { value: string; label: string }[];
+  placeholder: string;
+  value: string;
+  onChange: (value: string) => void;
+}
+
+function CustomSelect({ options, placeholder, value, onChange }: CustomSelectProps) {
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const selectedOption = options.find((opt) => opt.value === value);
+
+  return (
+    <div className={`relative ${isOpen ? 'z-50' : 'z-10'}`} ref={containerRef}>
+      <div 
+        className="w-full bg-white border-4 border-black px-4 py-3 text-black font-space font-bold cursor-pointer flex justify-between items-center transition-colors focus-within:ring-4 focus-within:ring-brand-pink"
+        onClick={() => setIsOpen(!isOpen)}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setIsOpen(!isOpen);
+          }
+        }}
+      >
+        <span className={value ? "text-black" : "text-black/60"}>
+          {selectedOption ? selectedOption.label : placeholder}
+        </span>
+        <ChevronDown size={24} className={`transform transition-transform ${isOpen ? "rotate-180" : ""}`} />
+      </div>
+      
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="absolute top-full left-0 right-0 mt-2 bg-white border-4 border-black shadow-[6px_6px_0_0_#000] z-50 flex flex-col overflow-y-auto max-h-[208px]"
+            data-lenis-prevent
+          >
+            {options.map((option) => (
+              <div
+                key={option.value}
+                className={`px-4 py-3 text-black font-space font-bold cursor-pointer transition-colors border-b-4 border-black last:border-b-0 hover:bg-brand-pink ${value === option.value ? "bg-brand-yellow" : "bg-white"}`}
+                onClick={() => {
+                  onChange(option.value);
+                  setIsOpen(false);
+                }}
+              >
+                {option.label}
+              </div>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   );
 }

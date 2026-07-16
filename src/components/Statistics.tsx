@@ -55,14 +55,16 @@ export default function Statistics() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: index * 0.1, type: "spring", stiffness: 100 }}
-              className="text-center bg-white border-4 border-black p-6 shadow-[6px_6px_0_0_#000] flex flex-col items-center justify-center overflow-hidden"
+              className="h-full flex"
             >
-              <div className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-space font-black text-black mb-4 flex items-center justify-center flex-wrap gap-y-2">
-                <AnimatedCounter value={stat.value} />
-                <span className="text-white bg-black px-2 border-4 border-black ml-2 whitespace-nowrap">{stat.suffix}</span>
-              </div>
-              <div className="text-sm md:text-base font-space font-black text-black uppercase tracking-widest border-t-4 border-black pt-4">
-                {stat.label}
+              <div className="brutal-card w-full text-center p-6 flex flex-col items-center justify-center">
+                <div className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-space font-black text-black mb-4 flex items-center justify-center flex-wrap gap-y-2">
+                  <AnimatedCounter value={stat.value} />
+                  <span className="text-white bg-black px-2 border-4 border-black ml-2 whitespace-nowrap">{stat.suffix}</span>
+                </div>
+                <div className="text-sm md:text-base font-space font-black text-black uppercase tracking-widest border-t-4 border-black pt-4">
+                  {stat.label}
+                </div>
               </div>
             </motion.div>
           ))}

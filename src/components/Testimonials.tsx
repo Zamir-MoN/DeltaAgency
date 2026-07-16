@@ -63,7 +63,7 @@ export default function Testimonials() {
 
       <div className="relative flex overflow-x-hidden group">
         <motion.div
-          className="flex space-x-6 px-3"
+          className="flex space-x-6 px-3 py-4"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             duration: 30,

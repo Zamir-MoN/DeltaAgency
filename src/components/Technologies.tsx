@@ -59,7 +59,7 @@ export default function Technologies() {
           </motion.p>
         </div>
 
-        <div className="w-full lg:w-1/2 flex justify-center items-center gap-2 sm:gap-4 md:gap-6 h-[400px] overflow-hidden mask-image-vertical">
+        <div className="w-full lg:w-1/2 flex justify-center items-center gap-2 sm:gap-4 md:gap-6 h-[400px] overflow-hidden mask-image-vertical px-4 py-4">
           
           <motion.div style={{ y: y1 }} className="flex-1 flex flex-col gap-2 sm:gap-4 md:gap-6 pt-10">
             {col1.map((tech) => (

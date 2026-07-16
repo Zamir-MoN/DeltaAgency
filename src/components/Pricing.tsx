@@ -80,7 +80,7 @@ export default function Pricing() {
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
           {plans.map((plan, idx) => (
             <motion.div
               key={plan.name}
@@ -88,10 +88,10 @@ export default function Pricing() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.4, delay: idx * 0.1 }}
-              className={`relative p-8 lg:p-10 border-4 border-black ${
+              className={`relative flex flex-col h-full p-8 lg:p-10 border-4 border-black transition-all duration-300 ${
                 plan.highlighted
-                  ? "bg-brand-yellow shadow-[12px_12px_0_0_#000] md:-mt-8"
-                  : "bg-white shadow-[6px_6px_0_0_#000]"
+                  ? "bg-brand-yellow shadow-[12px_12px_0_0_#000] lg:-translate-y-6 hover:translate-x-[12px] hover:translate-y-[12px] lg:hover:-translate-y-[12px] hover:shadow-none z-10"
+                  : "bg-white shadow-[6px_6px_0_0_#000] hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none z-0"
               }`}
             >
               {plan.highlighted && (
@@ -111,7 +111,7 @@ export default function Pricing() {
                 {plan.price}
               </div>
 
-              <div className="space-y-4 mb-10">
+              <div className="space-y-4 mb-10 flex-grow">
                 {plan.features.map((feature, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <div className="mt-1 flex-shrink-0 bg-brand-pink text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000]">

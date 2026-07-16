@@ -23,7 +23,7 @@ export default async function ServiceDetail({ params }: { params: Params }) {
   const Icon = service.icon;
 
   return (
-    <main className="min-h-screen pt-28 pb-20 px-6 md:px-12 bg-brand-bg-1">
+    <main className="min-h-screen pt-28 pb-20 px-6 md:px-12 bg-brand-bg-1 bg-dots">
       <div className="container mx-auto max-w-4xl">
         <Link 
           href="/#services"

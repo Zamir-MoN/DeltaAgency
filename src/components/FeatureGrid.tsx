@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
 import PixelSnow from "./PixelSnow";
+import Lottie from "lottie-react";
+import sideCatAnimation from "../../public/sidecat.json";
 
 interface Feature {
   title: string;
@@ -13,6 +15,36 @@ interface Feature {
 
 export default function FeatureGrid({ features, serviceTitle }: { features: Feature[], serviceTitle: string }) {
   const [selectedFeature, setSelectedFeature] = useState<{ feature: Feature; index: number } | null>(null);
+  const [sideCat, setSideCat] = useState({ show: false, position: "bottom" as "bottom" | "top" });
+
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
+    if (selectedFeature) {
+      setSideCat({ show: true, position: Math.random() > 0.5 ? "top" : "bottom" });
+      
+      const scheduleNext = (isShowing: boolean) => {
+        if (isShowing) {
+          timeoutId = setTimeout(() => {
+            setSideCat(prev => ({ ...prev, show: false }));
+            scheduleNext(false);
+          }, 3500);
+        } else {
+          const delay = Math.random() * 10000 + 5000;
+          timeoutId = setTimeout(() => {
+            setSideCat({ show: true, position: Math.random() > 0.5 ? "top" : "bottom" });
+            scheduleNext(true);
+          }, delay);
+        }
+      };
+
+      scheduleNext(true);
+      
+      return () => clearTimeout(timeoutId);
+    } else {
+      setSideCat({ show: false, position: "bottom" });
+    }
+  }, [selectedFeature]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -85,6 +117,14 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
                 selectedFeature.index % 2 === 0 ? "left-0 md:border-l-0" : "right-0 md:border-r-0"
               } ${getDrawerColor(selectedFeature.index)}`}
             >
+              <div 
+                className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"
+                style={{
+                  backgroundImage: `url('https://img.magnific.com/free-photo/anime-style-galaxy-background_23-2151134130.jpg?semt=ais_hybrid&w=740&q=80')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
               <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
                 <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
               </div>
@@ -105,10 +145,17 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
                   {selectedFeature.feature.title}
                 </h3>
                 
-                <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0_0_#000] mb-8">
-                  <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
-                    {selectedFeature.feature.detail}
-                  </p>
+                <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
+                  <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2QtwHCHQmKoYU41pKkap_bkOO2PNdyTVO0VRIrVGMtiKsOlG11o6P_W5m&s=10" 
+                    alt="Feature illustration" 
+                    className="w-full h-48 md:h-64 object-cover border-b-4 border-black"
+                  />
+                  <div className="p-6 md:p-8">
+                    <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
+                      {selectedFeature.feature.detail}
+                    </p>
+                  </div>
                 </div>
 
                 <Link 
@@ -119,6 +166,12 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
                   Discuss this feature
                 </Link>
               </div>
+
+              {sideCat.show && (
+                <div className={`absolute left-4 md:left-8 w-24 md:w-32 z-[100] pointer-events-none ${sideCat.position === 'top' ? 'top-0 rotate-180' : 'bottom-0'}`}>
+                  <Lottie animationData={sideCatAnimation} loop={true} />
+                </div>
+              )}
             </motion.div>
           </div>
         )}

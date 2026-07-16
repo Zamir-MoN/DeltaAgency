@@ -21,7 +21,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="py-32 relative bg-white border-b-8 border-black overflow-hidden">
+    <section id="contact" className="py-32 relative bg-brand-bg-1 bg-grid border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Left: Contact Info & Map */}

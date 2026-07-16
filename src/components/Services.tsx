@@ -72,6 +72,16 @@ export default function Services() {
   return (
     <section id="services" ref={containerRef} className="py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
       
+      {/* Dotted background pattern */}
+      <div 
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(rgba(0, 0, 0, 0.15) 2.5px, transparent 2.5px)',
+          backgroundSize: '32px 32px',
+          backgroundPosition: '0 0'
+        }}
+      />
+      
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center max-w-4xl mx-auto mb-20 bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_#000]">
           <motion.h2 

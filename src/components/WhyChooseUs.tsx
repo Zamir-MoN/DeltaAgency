@@ -4,7 +4,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Diamond, Search, MonitorSmartphone, ShieldCheck, Layers, X } from "lucide-react";
 import PixelSnow from "./PixelSnow";
-
+import Lottie from "lottie-react";
+import catAnimation from "../../public/cat-animation.json";
+import sideCatAnimation from "../../public/sidecat.json";
 const reasons = [
   {
     icon: Zap,
@@ -40,6 +42,40 @@ const reasons = [
 
 export default function WhyChooseUs() {
   const [selectedReason, setSelectedReason] = useState<{ reason: typeof reasons[0], index: number } | null>(null);
+  const [sideCat, setSideCat] = useState({ show: false, position: "bottom" as "bottom" | "top" });
+
+  useEffect(() => {
+    const sideCatTitles = ["Fast Delivery", "Responsive", "SEO Optimized", "Modern Technologies"];
+    let timeoutId: NodeJS.Timeout;
+
+    if (selectedReason && sideCatTitles.includes(selectedReason.reason.title)) {
+      // Show instantly on first open
+      setSideCat({ show: true, position: Math.random() > 0.5 ? "top" : "bottom" });
+      
+      const scheduleNext = (isShowing: boolean) => {
+        if (isShowing) {
+          // Hide after 3.5 seconds (the animation length)
+          timeoutId = setTimeout(() => {
+            setSideCat(prev => ({ ...prev, show: false }));
+            scheduleNext(false);
+          }, 3500);
+        } else {
+          // Wait a random time (5 to 15 seconds) before showing again
+          const delay = Math.random() * 10000 + 5000;
+          timeoutId = setTimeout(() => {
+            setSideCat({ show: true, position: Math.random() > 0.5 ? "top" : "bottom" });
+            scheduleNext(true);
+          }, delay);
+        }
+      };
+
+      scheduleNext(true);
+      
+      return () => clearTimeout(timeoutId);
+    } else {
+      setSideCat({ show: false, position: "bottom" });
+    }
+  }, [selectedReason]);
 
   useEffect(() => {
     if (selectedReason) {
@@ -143,7 +179,7 @@ export default function WhyChooseUs() {
               animate={getSlideProps(selectedReason.index).animate}
               exit={getSlideProps(selectedReason.index).exit}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className={`absolute border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto overflow-x-hidden shadow-[0_0_0_0_#000] ${getDrawerClasses(selectedReason.index)} ${getDrawerColor(selectedReason.index)}`}
+              className={`absolute border-black flex flex-col pointer-events-auto shadow-[0_0_0_0_#000] ${getDrawerClasses(selectedReason.index)} ${getDrawerColor(selectedReason.index)}`}
             >
               <div 
                 className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"
@@ -153,18 +189,31 @@ export default function WhyChooseUs() {
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
+              <div className="absolute inset-0 pointer-events-none opacity-30 z-0 overflow-hidden">
                 <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
               </div>
 
-              <button 
+              {(selectedReason.reason.title === "Premium Design" || selectedReason.reason.title === "Secure") && (
+                <div className="absolute top-0 right-8 md:right-12 -translate-y-[35%] w-48 h-48 md:w-64 md:h-64 z-50 pointer-events-none">
+                  <Lottie animationData={catAnimation} loop={true} />
+                </div>
+              )}
+
+              {["Fast Delivery", "Responsive", "SEO Optimized", "Modern Technologies"].includes(selectedReason.reason.title) && sideCat.show && (
+                <div className={`absolute left-4 md:left-8 w-24 md:w-32 z-[100] pointer-events-none ${sideCat.position === 'top' ? 'top-0 rotate-180' : 'bottom-0'}`}>
+                  <Lottie animationData={sideCatAnimation} loop={true} />
+                </div>
+              )}
+
+              <div className="flex-grow flex flex-col overflow-y-auto overflow-x-hidden p-8 md:p-12 relative z-10">
+                <button 
                 onClick={() => setSelectedReason(null)}
                 className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-pink hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer"
               >
                 <X size={24} strokeWidth={3} className="text-black" />
               </button>
 
-              <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
+              <div className="flex-grow flex flex-col justify-center mt-32 md:mt-16 relative z-10">
                 <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
                   <selectedReason.reason.icon size={32} strokeWidth={3} className="text-black" />
                 </div>
@@ -193,6 +242,7 @@ export default function WhyChooseUs() {
                   Close Details
                 </button>
               </div>
+            </div>
             </motion.div>
           </div>
         )}

@@ -145,6 +145,14 @@ export default function WhyChooseUs() {
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
               className={`absolute border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto overflow-x-hidden shadow-[0_0_0_0_#000] ${getDrawerClasses(selectedReason.index)} ${getDrawerColor(selectedReason.index)}`}
             >
+              <div 
+                className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"
+                style={{
+                  backgroundImage: `url('https://img.magnific.com/free-photo/anime-style-galaxy-background_23-2151134130.jpg?semt=ais_hybrid&w=740&q=80')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
               <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
                 <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
               </div>

@@ -21,7 +21,20 @@ function ServiceCard({ service, index, onClick }: { service: typeof services[0];
         onClick={onClick}
       >
         <div className="w-16 h-16 bg-brand-yellow border-4 border-black flex items-center justify-center mb-6 text-black shadow-[4px_4px_0_0_#000]">
-          <service.icon size={32} />
+          <motion.div
+            animate={{ 
+              y: [-2, 2, -2], 
+              rotate: [-5, 5, -5],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ 
+              duration: 4, 
+              repeat: Infinity, 
+              ease: "easeInOut" 
+            }}
+          >
+            <service.icon size={32} />
+          </motion.div>
         </div>
         
         <h4 className="text-2xl font-space font-black text-black uppercase mb-4">

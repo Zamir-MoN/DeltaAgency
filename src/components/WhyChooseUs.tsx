@@ -173,10 +173,17 @@ export default function WhyChooseUs() {
                   {selectedReason.reason.title}
                 </h3>
                 
-                <div className="bg-white border-4 border-black p-6 shadow-[4px_4px_0_0_#000] mb-8">
-                  <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
-                    {selectedReason.reason.description}
-                  </p>
+                <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
+                  <img 
+                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2QtwHCHQmKoYU41pKkap_bkOO2PNdyTVO0VRIrVGMtiKsOlG11o6P_W5m&s=10" 
+                    alt="Section illustration" 
+                    className="w-full h-48 md:h-64 object-cover border-b-4 border-black"
+                  />
+                  <div className="p-6 md:p-8">
+                    <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
+                      {selectedReason.reason.description}
+                    </p>
+                  </div>
                 </div>
 
                 <button 

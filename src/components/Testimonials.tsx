@@ -39,7 +39,7 @@ const duplicatedTestimonials = [...testimonials, ...testimonials];
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
+    <section id="testimonials" className="py-32 relative bg-brand-bg-1 bg-grid border-b-8 border-black overflow-hidden">
       
       <div className="container mx-auto px-6 md:px-12 relative z-10 mb-16 text-center max-w-3xl bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_#000]">
         <motion.h2

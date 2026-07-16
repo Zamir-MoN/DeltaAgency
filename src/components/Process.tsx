@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { Search, PenTool, Code, Beaker, Rocket } from "lucide-react";
 
 const steps = [
@@ -34,13 +34,15 @@ const steps = [
 
 export default function Process() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const timelineRef = useRef<HTMLDivElement>(null);
   
   const { scrollYProgress } = useScroll({
-    target: containerRef,
+    target: timelineRef,
     offset: ["start center", "end center"],
   });
 
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const smoothProgress = useSpring(scrollYProgress, { stiffness: 50, damping: 15, restDelta: 0.001 });
+  const lineHeight = useTransform(smoothProgress, [0, 1], ["0%", "100%"]);
 
   return (
     <section id="process" ref={containerRef} className="py-32 relative bg-brand-pink border-b-8 border-black overflow-hidden">
@@ -65,13 +67,13 @@ export default function Process() {
           </motion.h3>
         </div>
 
-        <div className="max-w-4xl mx-auto relative">
+        <div ref={timelineRef} className="max-w-4xl mx-auto relative pb-24">
           {/* Brutalist Line Background */}
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-2 border-l-4 border-r-4 border-black bg-white md:-translate-x-1/2" />
+          <div className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 bottom-0 w-6 border-x-4 border-black bg-white z-0" />
           
           {/* Animated Line */}
           <motion.div 
-            className="absolute left-8 md:left-1/2 top-0 w-2 border-l-4 border-r-4 border-black bg-brand-yellow md:-translate-x-1/2 origin-top z-0"
+            className="absolute left-8 md:left-1/2 -translate-x-1/2 top-0 w-6 border-x-4 border-black bg-brand-yellow origin-top z-0"
             style={{ height: lineHeight }}
           />
 
@@ -85,11 +87,12 @@ export default function Process() {
                   {/* Left Content (or empty for odd) */}
                   <div className={`hidden md:block w-5/12 ${isEven ? 'text-right pr-12' : 'order-3 pl-12 text-left'}`}>
                     <motion.div
-                      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15, delay: 0.2 } }}
+                      transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0 }}
+                      viewport={{ once: false, margin: "0px 0px -50% 0px", amount: 0 }}
                       className="brutal-card p-6 bg-white"
+                      style={{ transformOrigin: isEven ? "right center" : "left center" }}
                     >
                       <h4 className="text-2xl font-space font-black uppercase text-black mb-3">{step.title}</h4>
                       <p className="text-black font-space font-bold leading-relaxed">{step.description}</p>
@@ -97,26 +100,27 @@ export default function Process() {
                   </div>
 
                   {/* Center Node */}
-                  <div className={`absolute left-8 md:left-1/2 -translate-x-1/2 w-16 h-16 rounded-none bg-brand-yellow border-4 border-black shadow-[4px_4px_0_0_#000] flex items-center justify-center z-10 ${!isEven && 'md:order-2'}`}>
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ type: "spring", stiffness: 300, delay: 0.1 }}
-                      className="text-black"
-                    >
-                      <step.icon size={24} />
-                    </motion.div>
-                  </div>
+                  <motion.div 
+                    initial={{ scale: 0, opacity: 0 }}
+                    whileInView={{ scale: 1, opacity: 1, transition: { type: "spring", stiffness: 300, damping: 20, delay: 0 } }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
+                    viewport={{ once: false, margin: "0px 0px -50% 0px", amount: 0 }}
+                    className={`absolute left-8 md:left-1/2 -translate-x-1/2 w-16 h-16 rounded-none bg-brand-yellow border-4 border-black shadow-[4px_4px_0_0_#000] flex items-center justify-center z-10 ${!isEven && 'md:order-2'}`}
+                  >
+                    <div className="text-black">
+                      <step.icon size={24} strokeWidth={3} />
+                    </div>
+                  </motion.div>
 
                   {/* Mobile Content */}
                   <div className="md:hidden w-full pl-20 pr-4">
                     <motion.div
-                      initial={{ opacity: 0, x: 50 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, ease: "easeOut" }}
+                      initial={{ opacity: 0, scale: 0 }}
+                      whileInView={{ opacity: 1, scale: 1, transition: { type: "spring", stiffness: 100, damping: 15, delay: 0.2 } }}
+                      transition={{ type: "spring", stiffness: 100, damping: 15, delay: 0 }}
+                      viewport={{ once: false, margin: "0px 0px -50% 0px", amount: 0 }}
                       className="brutal-card p-6 bg-white"
+                      style={{ transformOrigin: "left center" }}
                     >
                       <h4 className="text-2xl font-space font-black uppercase text-black mb-3">{step.title}</h4>
                       <p className="text-black font-space font-bold leading-relaxed">{step.description}</p>

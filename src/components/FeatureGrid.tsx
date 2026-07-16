@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
+import PixelSnow from "./PixelSnow";
 
 interface Feature {
   title: string;
@@ -80,18 +81,22 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
               animate={{ x: 0 }}
               exit={{ x: selectedFeature.index % 2 === 0 ? "-100%" : "100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className={`absolute top-0 bottom-0 w-full md:w-1/2 lg:w-2/5 border-x-4 border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto ${
+              className={`absolute top-0 bottom-0 w-full md:w-1/2 lg:w-2/5 border-x-4 border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto overflow-x-hidden ${
                 selectedFeature.index % 2 === 0 ? "left-0 md:border-l-0" : "right-0 md:border-r-0"
               } ${getDrawerColor(selectedFeature.index)}`}
             >
+              <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
+                <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
+              </div>
+
               <button 
                 onClick={() => setSelectedFeature(null)}
-                className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-pink hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-10"
+                className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-pink hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer"
               >
                 <X size={24} strokeWidth={3} className="text-black" />
               </button>
 
-              <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0">
+              <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
                 <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
                   <Check size={32} strokeWidth={4} className="text-brand-pink" />
                 </div>

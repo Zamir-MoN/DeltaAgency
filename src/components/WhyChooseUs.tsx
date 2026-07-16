@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Diamond, Search, MonitorSmartphone, ShieldCheck, Layers, X } from "lucide-react";
+import PixelSnow from "./PixelSnow";
 
 const reasons = [
   {
@@ -79,7 +80,7 @@ export default function WhyChooseUs() {
   };
 
   return (
-    <section className="py-32 relative bg-brand-yellow border-b-8 border-black overflow-hidden">
+    <section className="py-32 relative bg-brand-yellow bg-grid border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20 bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_#000]">
           <motion.h2
@@ -142,16 +143,20 @@ export default function WhyChooseUs() {
               animate={getSlideProps(selectedReason.index).animate}
               exit={getSlideProps(selectedReason.index).exit}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className={`absolute border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto shadow-[0_0_0_0_#000] ${getDrawerClasses(selectedReason.index)} ${getDrawerColor(selectedReason.index)}`}
+              className={`absolute border-black p-8 md:p-12 flex flex-col pointer-events-auto overflow-y-auto overflow-x-hidden shadow-[0_0_0_0_#000] ${getDrawerClasses(selectedReason.index)} ${getDrawerColor(selectedReason.index)}`}
             >
+              <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
+                <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
+              </div>
+
               <button 
                 onClick={() => setSelectedReason(null)}
-                className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-pink hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-10"
+                className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-pink hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer"
               >
                 <X size={24} strokeWidth={3} className="text-black" />
               </button>
 
-              <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0">
+              <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
                 <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
                   <selectedReason.reason.icon size={32} strokeWidth={3} className="text-black" />
                 </div>

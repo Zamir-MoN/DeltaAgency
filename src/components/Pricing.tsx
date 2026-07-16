@@ -49,7 +49,7 @@ const plans = [
 
 export default function Pricing() {
   return (
-    <section className="py-32 relative bg-brand-cyan border-b-8 border-black overflow-hidden">
+    <section className="py-32 relative bg-brand-cyan bg-grid border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="text-center max-w-3xl mx-auto mb-20 bg-white border-4 border-black p-8 shadow-[8px_8px_0_0_#000]">
           <motion.h2
@@ -90,7 +90,7 @@ export default function Pricing() {
               transition={{ duration: 0.4, delay: idx * 0.1 }}
               className={`relative flex flex-col h-full p-8 lg:p-10 border-4 border-black transition-all duration-300 ${
                 plan.highlighted
-                  ? "bg-brand-yellow shadow-[12px_12px_0_0_#000] lg:-translate-y-6 hover:translate-x-[12px] hover:translate-y-[12px] lg:hover:-translate-y-[12px] hover:shadow-none z-10"
+                  ? "bg-brand-yellow shadow-[6px_6px_0_0_#000] lg:-translate-y-6 hover:translate-x-[6px] hover:translate-y-[6px] lg:hover:-translate-y-[18px] hover:shadow-none z-10"
                   : "bg-white shadow-[6px_6px_0_0_#000] hover:translate-x-[6px] hover:translate-y-[6px] hover:shadow-none z-0"
               }`}
             >
@@ -127,8 +127,8 @@ export default function Pricing() {
               <button
                 className={`w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black hover:-translate-y-1 hover:-translate-x-1 ${
                   plan.highlighted
-                    ? "bg-black text-white hover:shadow-[6px_6px_0_0_rgba(236,72,153,1)] hover:bg-brand-pink hover:text-black"
-                    : "bg-white text-black hover:bg-brand-blue hover:text-white hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] shadow-[4px_4px_0_0_#000]"
+                    ? "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-pink"
+                    : "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-blue hover:text-white"
                 }`}
               >
                 Choose {plan.name}

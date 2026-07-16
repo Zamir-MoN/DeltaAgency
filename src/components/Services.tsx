@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { services } from "../data/services";
 import { useRouter } from "next/navigation";
+import PixelSnow from "./PixelSnow";
 
 function ServiceCard({ service, index, onClick }: { service: typeof services[0]; index: number; onClick: () => void }) {
   return (
@@ -96,67 +97,103 @@ export default function Services() {
       </div>
 
       <AnimatePresence>
-        {selectedService && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-none" data-lenis-prevent>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto"
-              onClick={() => setSelectedService(null)}
-            />
-            
-            <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row pointer-events-auto h-auto max-h-[90vh] overflow-y-auto overflow-x-hidden md:overflow-visible">
-              
-              <motion.div
-                initial={{ x: "-100vw", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: "-100vw", opacity: 0 }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="w-full md:w-2/5 bg-brand-yellow border-4 border-black border-b-0 md:border-b-4 md:border-r-0 p-8 md:p-12 flex flex-col justify-center items-center text-center"
-              >
-                <div className="w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-8 shadow-[4px_4px_0_0_#000]">
-                  <selectedService.icon size={48} className="text-black" />
-                </div>
-                <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4">
-                  {selectedService.title}
-                </h3>
-              </motion.div>
+        {selectedService && (() => {
+          const selectedIndex = services.findIndex(s => s.slug === selectedService.slug);
+          
+          const getColor = (index: number, offset = 0) => {
+            const colors = [
+              "bg-brand-cyan",
+              "bg-brand-pink",
+              "bg-brand-yellow",
+              "bg-brand-green",
+              "bg-brand-blue",
+              "bg-brand-purple"
+            ];
+            return colors[(index + offset) % colors.length];
+          };
 
+          const getHexColor = (index: number) => {
+            const hexes = [
+              "#06B6D4", // brand-cyan
+              "#EC4899", // brand-pink
+              "#FACC15", // brand-yellow
+              "#22C55E", // brand-green
+              "#3B82F6", // brand-blue
+              "#A855F7"  // brand-purple
+            ];
+            return hexes[index % hexes.length];
+          };
+
+          return (
+            <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 md:p-12 pointer-events-none" data-lenis-prevent>
               <motion.div
-                initial={{ x: "100vw", opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                exit={{ x: "100vw", opacity: 0 }}
-                transition={{ type: "spring", damping: 25, stiffness: 200, delay: 0.1 }}
-                className="w-full md:w-3/5 bg-white border-4 border-black p-8 md:p-12 flex flex-col shadow-[8px_8px_0_0_#000] relative"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-auto overflow-hidden"
+                onClick={() => setSelectedService(null)}
               >
-                <button 
-                  onClick={() => setSelectedService(null)}
-                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 bg-brand-pink border-4 border-black flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-20 text-black font-black text-xl"
-                >
-                  X
-                </button>
-                
-                <h4 className="text-xl md:text-2xl font-space font-black text-black uppercase mb-6 bg-brand-cyan inline-block px-3 py-1 border-2 border-black w-fit mt-8 md:mt-0">
-                  Service Details
-                </h4>
-                
-                <p className="text-black font-space font-bold text-lg mb-8 leading-relaxed">
-                  {selectedService.desc}
-                </p>
-                
-                <div className="space-y-4 mb-10 flex-grow">
-                  {selectedService.features.map((feature, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="mt-1 flex-shrink-0 bg-brand-yellow text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000]">
-                        <Check size={16} strokeWidth={4} />
-                      </div>
-                      <span className="text-base font-space font-bold text-black leading-relaxed">
-                        {feature.title}
-                      </span>
-                    </div>
-                  ))}
+                <div className="absolute inset-0 opacity-50">
+                  <PixelSnow 
+                    color={getHexColor(selectedIndex)} 
+                    flakeSize={0.015} 
+                    density={0.1} 
+                    speed={1.5} 
+                  />
                 </div>
+              </motion.div>
+              
+              <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row pointer-events-auto h-auto max-h-[90vh] overflow-y-auto overflow-x-hidden md:overflow-visible">
+                
+                <motion.div
+                  initial={{ x: "-100vw", opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: "-100vw", opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  className={`w-full md:w-2/5 border-4 border-black border-b-0 md:border-b-4 md:border-r-0 p-8 md:p-12 flex flex-col justify-center items-center text-center ${getColor(selectedIndex, 0)}`}
+                >
+                  <div className="w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-8 shadow-[4px_4px_0_0_#000]">
+                    <selectedService.icon size={48} className="text-black" />
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4">
+                    {selectedService.title}
+                  </h3>
+                </motion.div>
+
+                <motion.div
+                  initial={{ x: "100vw", opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ x: "100vw", opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200, delay: 0.1 }}
+                  className="w-full md:w-3/5 bg-white border-4 border-black p-8 md:p-12 flex flex-col shadow-[8px_8px_0_0_#000] relative"
+                >
+                  <button 
+                    onClick={() => setSelectedService(null)}
+                    className={`absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 border-4 border-black flex items-center justify-center hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer text-black font-black text-xl ${getColor(selectedIndex, 1)}`}
+                  >
+                    X
+                  </button>
+                  
+                  <h4 className={`text-xl md:text-2xl font-space font-black text-black uppercase mb-6 inline-block px-3 py-1 border-2 border-black w-fit mt-8 md:mt-0 ${getColor(selectedIndex, 2)}`}>
+                    Service Details
+                  </h4>
+                  
+                  <p className="text-black font-space font-bold text-lg mb-8 leading-relaxed">
+                    {selectedService.desc}
+                  </p>
+                  
+                  <div className="space-y-4 mb-10 flex-grow">
+                    {selectedService.features.map((feature, i) => (
+                      <div key={i} className="flex items-start gap-3">
+                        <div className={`mt-1 flex-shrink-0 text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000] ${getColor(selectedIndex, 0)}`}>
+                          <Check size={16} strokeWidth={4} />
+                        </div>
+                        <span className="text-base font-space font-bold text-black leading-relaxed">
+                          {feature.title}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 
                 <button
                   onClick={() => {
@@ -171,8 +208,9 @@ export default function Services() {
                 </button>
               </motion.div>
             </div>
-          </div>
-        )}
+            </div>
+          );
+        })()}
       </AnimatePresence>
     </section>
   );

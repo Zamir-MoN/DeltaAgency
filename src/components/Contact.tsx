@@ -112,8 +112,9 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
+            className="flex flex-col justify-center h-full"
           >
-            <form onSubmit={handleSubmit} className="bg-brand-yellow border-4 border-black p-6 md:p-12 h-full flex flex-col justify-center shadow-[12px_12px_0_0_#000]">
+            <form onSubmit={handleSubmit} className="bg-brand-yellow border-4 border-black p-6 md:p-12 shadow-[12px_12px_0_0_#000]">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                 <div>
                   <label className="block text-lg font-space font-black uppercase text-black mb-2">Full Name</label>

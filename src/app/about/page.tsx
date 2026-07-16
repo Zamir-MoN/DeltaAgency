@@ -3,7 +3,7 @@ import { ArrowLeft, Target, Users, Zap } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-brand-bg-1 pt-24 pb-32">
+    <div className="min-h-screen bg-brand-bg-1 bg-dots pt-24 pb-32">
       <div className="container mx-auto px-6 md:px-12">
         <Link 
           href="/"

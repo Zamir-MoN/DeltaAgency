@@ -1,9 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
+import PricingToggle, { PricingTab } from "./PricingToggle";
 
-const plans = [
+const webPlans = [
   {
     name: "Starter",
     price: "$2,500+",
@@ -47,7 +49,103 @@ const plans = [
   },
 ];
 
+const appPlans = [
+  {
+    name: "Starter",
+    price: "$5,000+",
+    description: "Native mobile app MVP for iOS or Android platforms.",
+    features: [
+      "Single Platform (iOS/Android)",
+      "UI/UX Design",
+      "Basic API Integration",
+      "App Store Submission",
+      "1 Month Free Support",
+    ],
+    highlighted: false,
+  },
+  {
+    name: "Professional",
+    price: "$15,000+",
+    description: "Cross-platform mobile applications with advanced feature sets.",
+    features: [
+      "Cross-Platform (React Native)",
+      "Custom Animations",
+      "Push Notifications",
+      "Complex Backend Integration",
+      "Offline Mode Support",
+      "3 Months Free Support",
+    ],
+    highlighted: true,
+  },
+  {
+    name: "Enterprise",
+    price: "$35,000+",
+    description: "Enterprise-grade mobile solutions with scalable infrastructure.",
+    features: [
+      "Native iOS & Android",
+      "AI & Machine Learning Features",
+      "Real-time WebSocket Data",
+      "Advanced Security Audits",
+      "Dedicated Project Manager",
+      "12 Months Free Support",
+    ],
+    highlighted: false,
+  },
+];
+
+const hostingPlans = [
+  {
+    name: "Starter",
+    price: "$150/mo",
+    description: "Reliable shared hosting and maintenance for standard websites.",
+    features: [
+      "99.9% Uptime Guarantee",
+      "Free SSL Certificate",
+      "Weekly Backups",
+      "Basic Security Monitoring",
+      "Email Support",
+    ],
+    highlighted: false,
+  },
+  {
+    name: "Professional",
+    price: "$500/mo",
+    description: "High-performance VPS hosting for growing digital platforms.",
+    features: [
+      "Virtual Private Server",
+      "Global CDN Setup",
+      "Daily Automated Backups",
+      "Advanced Firewall Security",
+      "Performance Optimization",
+      "Priority Support",
+    ],
+    highlighted: true,
+  },
+  {
+    name: "Enterprise",
+    price: "$1,500+/mo",
+    description: "Dedicated infrastructure for mission-critical applications.",
+    features: [
+      "Dedicated Server / AWS Scalable",
+      "Load Balancing",
+      "Real-time Threat Mitigation",
+      "Disaster Recovery Setup",
+      "Custom CI/CD Pipelines",
+      "24/7 Phone Support",
+    ],
+    highlighted: false,
+  },
+];
+
+const pricingData = {
+  app: appPlans,
+  web: webPlans,
+  hosting: hostingPlans
+};
+
 export default function Pricing() {
+  const [activeTab, setActiveTab] = useState<PricingTab>('web');
+  const currentPlans = pricingData[activeTab];
   return (
     <section className="py-32 relative bg-brand-cyan bg-grid border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
@@ -80,14 +178,12 @@ export default function Pricing() {
           </motion.p>
         </div>
 
+        <PricingToggle activeTab={activeTab} setActiveTab={setActiveTab} />
+
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12 max-w-6xl mx-auto">
-          {plans.map((plan, idx) => (
-            <motion.div
-              key={plan.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
+          {currentPlans.map((plan, idx) => (
+            <div
+              key={idx}
               className={`relative flex flex-col h-full p-8 lg:p-10 border-4 border-black transition-all duration-300 ${
                 plan.highlighted
                   ? "bg-brand-yellow shadow-[6px_6px_0_0_#000] lg:-translate-y-6 hover:translate-x-[6px] hover:translate-y-[6px] lg:hover:-translate-y-[18px] hover:shadow-none z-10"
@@ -100,40 +196,49 @@ export default function Pricing() {
                 </div>
               )}
               
-              <h4 className="text-3xl font-space font-black text-black uppercase mb-2">
-                {plan.name}
-              </h4>
-              <p className="text-black font-space font-bold text-sm mb-6 min-h-[2.5rem]">
-                {plan.description}
-              </p>
-              
-              <div className="text-4xl sm:text-5xl lg:text-4xl xl:text-5xl font-space font-black text-black mb-8 border-b-4 border-black pb-8 break-words">
-                {plan.price}
-              </div>
-
-              <div className="space-y-4 mb-10 flex-grow">
-                {plan.features.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="mt-1 flex-shrink-0 bg-brand-pink text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000]">
-                      <Check size={16} strokeWidth={4} />
-                    </div>
-                    <span className="text-base font-space font-bold text-black leading-relaxed">
-                      {feature}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              <button
-                className={`w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black hover:-translate-y-1 hover:-translate-x-1 ${
-                  plan.highlighted
-                    ? "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-pink"
-                    : "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-blue hover:text-white"
-                }`}
+              <motion.div
+                key={activeTab}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: idx * 0.15 }}
+                className="flex flex-col flex-grow"
               >
-                Choose {plan.name}
-              </button>
-            </motion.div>
+                <h4 className="text-3xl font-space font-black text-black uppercase mb-2">
+                  {plan.name}
+                </h4>
+                <p className="text-black font-space font-bold text-sm mb-6 min-h-[2.5rem]">
+                  {plan.description}
+                </p>
+                
+                <div className="text-4xl sm:text-5xl lg:text-3xl xl:text-4xl font-space font-black text-black mb-8 border-b-4 border-black pb-8 break-words">
+                  {plan.price}
+                </div>
+
+                <div className="space-y-4 mb-10 flex-grow">
+                  {plan.features.map((feature, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <div className="mt-1 flex-shrink-0 bg-brand-pink text-black border-2 border-black rounded-none p-0.5 shadow-[2px_2px_0_0_#000]">
+                        <Check size={16} strokeWidth={4} />
+                      </div>
+                      <span className="text-base font-space font-bold text-black leading-relaxed">
+                        {feature}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <a
+                  href="#contact"
+                  className={`block w-full mt-auto py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black hover:-translate-y-1 hover:-translate-x-1 ${
+                    plan.highlighted
+                      ? "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-pink"
+                      : "bg-white text-black shadow-[4px_4px_0_0_#000] hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-blue hover:text-white"
+                  }`}
+                >
+                  Choose {plan.name}
+                </a>
+              </motion.div>
+            </div>
           ))}
         </div>
       </div>

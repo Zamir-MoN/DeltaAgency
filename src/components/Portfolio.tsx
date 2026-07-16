@@ -78,7 +78,7 @@ export default function Portfolio() {
   );
 
   return (
-    <section id="portfolio" className="pt-8 pb-16 md:py-32 relative bg-brand-bg-1 border-b-8 border-black overflow-hidden">
+    <section id="portfolio" className="pt-8 pb-16 md:py-32 relative bg-brand-bg-1 bg-grid border-b-8 border-black overflow-hidden">
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-8 md:gap-8">
           <div className="max-w-2xl bg-white border-4 border-black p-6 shadow-[6px_6px_0_0_#000]">

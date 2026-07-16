@@ -2,58 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Monitor, PenTool, Fingerprint, Bot, Smartphone, Cloud, TrendingUp, Server, Check } from "lucide-react";
-
-const services = [
-  { 
-    icon: Monitor, 
-    title: "Website Development", 
-    desc: "High-performance, accessible, and SEO-optimized web experiences.",
-    features: ["Custom Web Applications", "E-Commerce Solutions", "CMS Development", "Performance Optimization"]
-  },
-  { 
-    icon: PenTool, 
-    title: "UI/UX Design", 
-    desc: "Intuitive interfaces and engaging user experiences.",
-    features: ["User Research & Strategy", "Wireframing & Prototyping", "Visual Design Systems", "Usability Testing"]
-  },
-  { 
-    icon: Fingerprint, 
-    title: "Brand Identity", 
-    desc: "Memorable brand assets and cohesive visual systems.",
-    features: ["Logo & Identity Systems", "Brand Guidelines", "Typography & Color Palettes", "Marketing Collateral"]
-  },
-  { 
-    icon: Bot, 
-    title: "AI Automation", 
-    desc: "Intelligent workflows that scale your business operations.",
-    features: ["Custom AI Chatbots", "Workflow Automation", "Machine Learning Integration", "Data Analysis & Insights"]
-  },
-  { 
-    icon: Smartphone, 
-    title: "App Development", 
-    desc: "Native and cross-platform mobile applications.",
-    features: ["iOS & Android Apps", "React Native Development", "App Store Optimization", "Maintenance & Support"]
-  },
-  { 
-    icon: Cloud, 
-    title: "Cloud Solutions", 
-    desc: "Scalable infrastructure and cloud-native architecture.",
-    features: ["AWS/Azure/GCP Setup", "Serverless Architecture", "Database Migration", "Security & Compliance"]
-  },
-  { 
-    icon: TrendingUp, 
-    title: "Marketing", 
-    desc: "Data-driven strategies for digital growth.",
-    features: ["SEO & SEM", "Social Media Campaigns", "Content Marketing", "Analytics & Reporting"]
-  },
-  { 
-    icon: Server, 
-    title: "Hosting", 
-    desc: "Secure, reliable, and lightning-fast hosting solutions.",
-    features: ["Managed Cloud Hosting", "CDN Integration", "24/7 Monitoring", "Automated Backups"]
-  }
-];
+import { Check } from "lucide-react";
+import { services } from "../data/services";
+import { useRouter } from "next/navigation";
 
 function ServiceCard({ service, index, onClick }: { service: typeof services[0]; index: number; onClick: () => void }) {
   return (
@@ -93,6 +44,7 @@ function ServiceCard({ service, index, onClick }: { service: typeof services[0];
 export default function Services() {
   const containerRef = useRef(null);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     if (selectedService) {
@@ -200,7 +152,7 @@ export default function Services() {
                         <Check size={16} strokeWidth={4} />
                       </div>
                       <span className="text-base font-space font-bold text-black leading-relaxed">
-                        {feature}
+                        {feature.title}
                       </span>
                     </div>
                   ))}
@@ -209,7 +161,9 @@ export default function Services() {
                 <button
                   onClick={() => {
                     setSelectedService(null);
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                    setTimeout(() => {
+                      router.push(`/services/${selectedService.slug}`);
+                    }, 500);
                   }}
                   className="w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black bg-black text-white hover:shadow-[6px_6px_0_0_rgba(236,72,153,1)] hover:bg-brand-pink hover:text-black hover:-translate-y-1 hover:-translate-x-1"
                 >

@@ -42,11 +42,11 @@ export default function Footer() {
           <div>
             <h4 className="text-black font-space font-black uppercase text-xl mb-6">Services</h4>
             <ul className="space-y-4">
-              <FooterLink href="#">Web Development</FooterLink>
-              <FooterLink href="#">UI/UX Design</FooterLink>
-              <FooterLink href="#">AI Automation</FooterLink>
-              <FooterLink href="#">Brand Identity</FooterLink>
-              <FooterLink href="#">Cloud Solutions</FooterLink>
+              <FooterLink href="/services/website-development">Web Development</FooterLink>
+              <FooterLink href="/services/ui-ux-design">UI/UX Design</FooterLink>
+              <FooterLink href="/services/ai-automation">AI Automation</FooterLink>
+              <FooterLink href="/services/brand-identity">Brand Identity</FooterLink>
+              <FooterLink href="/services/cloud-solutions">Cloud Solutions</FooterLink>
             </ul>
           </div>
 

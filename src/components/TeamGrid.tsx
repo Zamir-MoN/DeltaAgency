@@ -91,6 +91,19 @@ const teamMembers = [
 export default function TeamGrid() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null);
 
+  // Prevent background scrolling when modal is open
+  useEffect(() => {
+    if (selectedMember) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [selectedMember]);
+
   return (
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>

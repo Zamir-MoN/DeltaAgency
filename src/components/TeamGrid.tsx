@@ -110,19 +110,7 @@ export default function TeamGrid() {
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto auto-rows-fr">
         {teamMembers.map((member, i) => (
-          <div key={i} onClick={() => setSelectedMember(member)} className="group bg-white border-4 border-black p-4 md:p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative overflow-hidden cursor-pointer">
-            
-            {/* Hover Background Image */}
-            {(member as any).hoverImage && (
-              <div 
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0"
-                style={{
-                  backgroundImage: `url('${(member as any).hoverImage}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-            )}
+          <div key={i} onClick={() => setSelectedMember(member)} className="group bg-white border-4 border-black p-4 md:p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative cursor-pointer">
             
             {/* Content wrapper */}
             <div className="relative z-10 flex flex-row items-center justify-between w-full h-full">
@@ -133,9 +121,9 @@ export default function TeamGrid() {
                 </div>
                 
                 <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                  <h3 className="text-lg md:text-xl font-space font-black text-black group-hover:text-white uppercase transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.name}</h3>
-                  <span className="hidden md:block text-black group-hover:text-white group-hover:[text-shadow:2px_2px_0px_#000]">-</span>
-                  <p className="text-sm md:text-base font-space font-bold text-gray-500 group-hover:text-white uppercase transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.role}</p>
+                  <h3 className="text-lg md:text-xl font-space font-black text-black uppercase transition-all duration-300">{member.name}</h3>
+                  <span className="hidden md:block text-black">-</span>
+                  <p className="text-sm md:text-base font-space font-bold text-gray-500 uppercase transition-all duration-300">{member.role}</p>
                 </div>
               </div>
 
@@ -144,6 +132,18 @@ export default function TeamGrid() {
               </div>
 
             </div>
+
+            {/* Floating Hover Card */}
+            {(member as any).hoverImage && (
+              <div 
+                className="absolute right-20 md:right-32 top-1/2 -translate-y-1/2 w-32 h-32 md:w-48 md:h-48 bg-white border-4 border-black shadow-[8px_8px_0_0_#000] opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none z-50 -rotate-6 group-hover:rotate-3 scale-75 group-hover:scale-100 origin-center"
+                style={{
+                  backgroundImage: `url('${(member as any).hoverImage}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              />
+            )}
           </div>
         ))}
       </div>

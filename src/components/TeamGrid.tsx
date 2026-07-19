@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X } from "lucide-react";
+import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X, Users } from "lucide-react";
 import { FaInstagram, FaDiscord, FaTelegramPlane, FaLinkedinIn } from "react-icons/fa";
 import PixelSnow from "./PixelSnow";
 
@@ -121,6 +121,21 @@ export default function TeamGrid() {
         className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:mr-auto lg:ml-[5%] xl:ml-[10%] mt-8 lg:mt-24 relative"
         onMouseLeave={() => setHoveredIndex(null)}
       >
+        {/* Default Hover Card (When nothing is hovered) */}
+        <div 
+          className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square flex-col bg-white border-4 border-black shadow-[12px_12px_0_0_#000] items-center justify-center text-center p-8 transition-all duration-300 ${hoveredIndex === null ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+        >
+          <div className="w-24 h-24 bg-brand-yellow border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 hover:rotate-3 transition-transform">
+            <Users size={48} className="text-black" />
+          </div>
+          <h3 className="text-2xl font-space font-black text-black uppercase mb-2 leading-tight">
+            Meet The Crew
+          </h3>
+          <p className="text-sm font-space font-bold text-gray-500 uppercase">
+            Hover over any member to preview their profile
+          </p>
+        </div>
+
         {teamMembers.map((member, i) => {
           const isHovered = hoveredIndex === i;
           return (

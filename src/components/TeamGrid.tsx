@@ -110,76 +110,67 @@ export default function TeamGrid() {
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       
-      <div className="flex flex-col lg:flex-row gap-8 max-w-7xl mx-auto items-start">
-        
-        {/* Left side: Sticky Preview Card (Desktop only) */}
-        <div className="hidden lg:block w-1/3 sticky top-32 shrink-0">
-          <div className={`w-full aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex flex-col items-center justify-center text-center transition-colors duration-500 relative overflow-hidden ${teamMembers[hoveredIndex].color}`}>
-            
-            {(teamMembers[hoveredIndex] as any).hoverImage ? (
+      <div className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:ml-auto lg:mr-[5%] xl:mr-[10%] relative">
+        {teamMembers.map((member, i) => {
+          const isHovered = hoveredIndex === i;
+          return (
+            <div 
+              key={i} 
+              onMouseEnter={() => setHoveredIndex(i)}
+              onClick={() => setSelectedMember(member)} 
+              className={`group border-4 border-black p-4 md:p-6 transition-all duration-200 flex flex-row items-center justify-between w-full relative cursor-pointer z-10 hover:z-50 ${isHovered ? `${member.color} shadow-[10px_10px_0_0_#000] -translate-y-1 -translate-x-1` : 'bg-white shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1'}`}
+            >
+              
+              {/* Floating Preview Card (Desktop Only) */}
               <div 
-                className="absolute inset-0 z-0 opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  backgroundImage: `url('${(teamMembers[hoveredIndex] as any).hoverImage}')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-            ) : (
-              <>
-                <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 transition-transform duration-300 hover:rotate-3">
-                  {(() => {
-                    const Icon = teamMembers[hoveredIndex].icon;
-                    return <Icon size={48} className="text-black" />;
-                  })()}
-                </div>
-                <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
-                  {teamMembers[hoveredIndex].name}
-                </h3>
-                <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
-                  {teamMembers[hoveredIndex].role}
-                </p>
-              </>
-            )}
-          </div>
-        </div>
-
-        {/* Right side: Accordion List */}
-        <div className="w-full lg:w-2/3 flex flex-col gap-4 md:gap-6">
-          {teamMembers.map((member, i) => {
-            const isHovered = hoveredIndex === i;
-            return (
-              <div 
-                key={i} 
-                onMouseEnter={() => setHoveredIndex(i)}
-                onClick={() => setSelectedMember(member)} 
-                className={`group border-4 border-black p-4 md:p-6 transition-all duration-200 flex flex-row items-center justify-between w-full relative cursor-pointer ${isHovered ? `${member.color} shadow-[10px_10px_0_0_#000] -translate-y-1 -translate-x-1` : 'bg-white shadow-[6px_6px_0_0_#000] hover:shadow-[10px_10px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1'}`}
+                className={`hidden lg:flex absolute right-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex-col items-center justify-center text-center transition-all duration-300 overflow-hidden ${member.color} ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
               >
-                
-                <div className="flex items-center gap-4 md:gap-6 relative z-10">
-                  {/* We can hide the small icon on desktop if we want, but keeping it is fine */}
-                  <div className={`hidden md:flex w-12 h-12 md:w-14 md:h-14 bg-white border-4 border-black items-center justify-center shrink-0 transition-all duration-300 ${member.animation}`}>
-                    <member.icon size={24} className="text-black" />
-                  </div>
-                  
-                  <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
-                    <h3 className={`text-lg md:text-xl font-space font-black uppercase transition-all duration-300 ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-black'}`}>
+                {(member as any).hoverImage ? (
+                  <div 
+                    className="absolute inset-0 z-0 opacity-100 pointer-events-none"
+                    style={{
+                      backgroundImage: `url('${(member as any).hoverImage}')`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                    }}
+                  />
+                ) : (
+                  <>
+                    <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3">
+                      <member.icon size={48} className="text-black" />
+                    </div>
+                    <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
                       {member.name}
                     </h3>
-                    <span className={`hidden md:block ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-black'}`}>-</span>
-                    <p className={`text-sm md:text-base font-space font-bold uppercase transition-all duration-300 ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-gray-500'}`}>
+                    <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
                       {member.role}
                     </p>
-                  </div>
-                </div>
+                  </>
+                )}
+              </div>
 
-                <div className={`relative z-10 w-10 h-10 md:w-12 md:h-12 border-4 border-black flex items-center justify-center shrink-0 transition-colors ${isHovered ? 'bg-white text-black' : 'bg-brand-bg-1 text-black group-hover:bg-brand-yellow'}`}>
-                  <span className="text-2xl md:text-3xl font-space font-black leading-none mt-1">+</span>
+              <div className="flex items-center gap-4 md:gap-6 relative z-10">
+                <div className={`hidden md:flex w-12 h-12 md:w-14 md:h-14 bg-white border-4 border-black items-center justify-center shrink-0 transition-all duration-300 ${member.animation}`}>
+                  <member.icon size={24} className="text-black" />
+                </div>
+                
+                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                  <h3 className={`text-lg md:text-xl font-space font-black uppercase transition-all duration-300 ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-black'}`}>
+                    {member.name}
+                  </h3>
+                  <span className={`hidden md:block ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-black'}`}>-</span>
+                  <p className={`text-sm md:text-base font-space font-bold uppercase transition-all duration-300 ${isHovered ? 'text-white [text-shadow:2px_2px_0px_#000]' : 'text-gray-500'}`}>
+                    {member.role}
+                  </p>
                 </div>
               </div>
-            );
-          })}
-        </div>
+
+              <div className={`relative z-10 w-10 h-10 md:w-12 md:h-12 border-4 border-black flex items-center justify-center shrink-0 transition-colors ${isHovered ? 'bg-white text-black' : 'bg-brand-bg-1 text-black group-hover:bg-brand-yellow'}`}>
+                <span className="text-2xl md:text-3xl font-space font-black leading-none mt-1">+</span>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       <AnimatePresence>

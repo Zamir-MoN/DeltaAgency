@@ -116,7 +116,7 @@ export default function TeamGrid() {
         <div className="hidden lg:block w-1/3 sticky top-32 shrink-0">
           <div className={`w-full aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex flex-col items-center justify-center text-center transition-colors duration-500 relative overflow-hidden ${teamMembers[hoveredIndex].color}`}>
             
-            {(teamMembers[hoveredIndex] as any).hoverImage && (
+            {(teamMembers[hoveredIndex] as any).hoverImage ? (
               <div 
                 className="absolute inset-0 z-0 opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{
@@ -125,20 +125,22 @@ export default function TeamGrid() {
                   backgroundPosition: 'center',
                 }}
               />
+            ) : (
+              <>
+                <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 transition-transform duration-300 hover:rotate-3">
+                  {(() => {
+                    const Icon = teamMembers[hoveredIndex].icon;
+                    return <Icon size={48} className="text-black" />;
+                  })()}
+                </div>
+                <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
+                  {teamMembers[hoveredIndex].name}
+                </h3>
+                <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
+                  {teamMembers[hoveredIndex].role}
+                </p>
+              </>
             )}
-            
-            <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 transition-transform duration-300 hover:rotate-3">
-              {(() => {
-                const Icon = teamMembers[hoveredIndex].icon;
-                return <Icon size={48} className="text-black" />;
-              })()}
-            </div>
-            <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
-              {teamMembers[hoveredIndex].name}
-            </h3>
-            <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
-              {teamMembers[hoveredIndex].role}
-            </p>
           </div>
         </div>
 

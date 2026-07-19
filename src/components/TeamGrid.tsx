@@ -209,46 +209,60 @@ export default function TeamGrid() {
               <div className="relative z-10 w-full h-full p-8 md:p-12 overflow-y-auto flex flex-col" data-lenis-prevent>
                 <button 
                   onClick={() => setSelectedMember(null)}
-                  className="absolute top-4 right-4 md:top-6 md:right-6 w-10 h-10 bg-white border-4 border-black flex items-center justify-center hover:bg-brand-yellow transition-colors z-20 shadow-[4px_4px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none"
+                  className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-yellow hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer hidden md:block"
                 >
-                  <X size={24} className="text-black" />
+                  <X size={24} strokeWidth={3} className="text-black" />
                 </button>
-                
-                {/* Header: Icon + Name & Role */}
-                <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-0 mt-4 md:mt-0 mb-8 md:mb-10">
-                  <div className={`w-28 h-28 md:w-32 md:h-32 shrink-0 border-4 border-black flex items-center justify-center shadow-[8px_8px_0_0_#000] bg-white`}>
-                    <selectedMember.icon size={56} className="text-black" />
+
+                <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
+                  <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
+                    <selectedMember.icon size={32} strokeWidth={4} className="text-black" />
                   </div>
-                  <div className="flex flex-col items-start pt-2">
-                    <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4">
-                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000] leading-snug">{selectedMember.name}</span>
-                    </h3>
-                    <p className="text-xl font-space font-bold text-black uppercase">
-                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">{selectedMember.role}</span>
-                    </p>
-                  </div>
-                </div>
-                
-                {/* Full Width Description */}
-                <p className="text-lg md:text-xl font-inter font-bold text-gray-900 leading-relaxed bg-white border-4 border-black p-6 md:p-8 shadow-[8px_8px_0_0_#000] mb-10 relative z-0">
-                  {selectedMember.description}
-                </p>
-                
-                {/* Full Width Skills */}
-                {selectedMember.skills && selectedMember.skills.length > 0 && (
-                  <div className="relative z-0 pb-8">
-                    <h4 className="text-2xl md:text-3xl font-space font-black text-black uppercase mb-8 mt-2">
-                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">Skills & Expertise</span>
-                    </h4>
-                    <div className="flex flex-wrap gap-4">
-                      {selectedMember.skills.map((skill, index) => (
-                        <span key={index} className="bg-white border-4 border-black px-4 py-2 text-sm md:text-base font-inter font-bold text-black shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] transition-all cursor-default">
-                          {skill}
-                        </span>
-                      ))}
+                  
+                  <h3 className="text-3xl md:text-5xl font-space font-black text-black uppercase mb-2 leading-tight">
+                    {selectedMember.name}
+                  </h3>
+                  <p className="text-xl md:text-2xl font-space font-bold text-black uppercase mb-6 opacity-90">
+                    {selectedMember.role}
+                  </p>
+                  
+                  <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
+                    {(selectedMember as any).hoverImage && (
+                      <img 
+                        src={(selectedMember as any).hoverImage}
+                        alt={selectedMember.name}
+                        className="w-full h-56 md:h-80 object-cover object-top border-b-4 border-black"
+                      />
+                    )}
+                    <div className="p-6 md:p-8">
+                      <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
+                        {selectedMember.description}
+                      </p>
+                      
+                      {selectedMember.skills && selectedMember.skills.length > 0 && (
+                        <div className="mt-8 pt-8 border-t-4 border-black">
+                          <h4 className="text-xl md:text-2xl font-space font-black text-black uppercase mb-6">
+                            Skills & Expertise
+                          </h4>
+                          <div className="flex flex-wrap gap-3">
+                            {selectedMember.skills.map((skill, index) => (
+                              <span key={index} className="bg-brand-bg-1 border-2 border-black px-4 py-2 text-sm font-space font-bold text-black uppercase shadow-[2px_2px_0_0_#000]">
+                                {skill}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
-                )}
+
+                  <button 
+                    onClick={() => setSelectedMember(null)}
+                    className="w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black bg-black text-white hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-yellow hover:text-black hover:-translate-y-1 hover:-translate-x-1"
+                  >
+                    Close Details
+                  </button>
+                </div>
               </div>
             </motion.div>
           </div>

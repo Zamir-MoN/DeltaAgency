@@ -110,7 +110,7 @@ export default function TeamGrid() {
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto auto-rows-fr">
         {teamMembers.map((member, i) => (
-          <div key={i} className="group bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative overflow-hidden">
+          <div key={i} onClick={() => setSelectedMember(member)} className="group bg-white border-4 border-black p-4 md:p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative overflow-hidden cursor-pointer">
             
             {/* Hover Background Image */}
             {(member as any).hoverImage && (
@@ -125,19 +125,24 @@ export default function TeamGrid() {
             )}
             
             {/* Content wrapper */}
-            <div className="relative z-10 flex flex-col h-full">
-              <div className={`w-14 h-14 ${member.color} border-4 border-black flex items-center justify-center mb-6 transition-all duration-300 ${member.animation}`}>
-                <member.icon size={28} className="text-black" />
+            <div className="relative z-10 flex flex-row items-center justify-between w-full h-full">
+              
+              <div className="flex items-center gap-4 md:gap-6">
+                <div className={`w-12 h-12 md:w-14 md:h-14 ${member.color} border-4 border-black flex items-center justify-center shrink-0 transition-all duration-300 ${member.animation}`}>
+                  <member.icon size={24} className="text-black" />
+                </div>
+                
+                <div className="flex flex-col md:flex-row md:items-center gap-1 md:gap-4">
+                  <h3 className="text-lg md:text-xl font-space font-black text-black group-hover:text-white uppercase transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.name}</h3>
+                  <span className="hidden md:block text-black group-hover:text-white group-hover:[text-shadow:2px_2px_0px_#000]">-</span>
+                  <p className="text-sm md:text-base font-space font-bold text-gray-500 group-hover:text-white uppercase transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.role}</p>
+                </div>
               </div>
-              <h3 className="text-xl font-space font-black text-black group-hover:text-white uppercase mb-1 transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.name}</h3>
-              <p className="text-sm font-space font-bold text-gray-500 group-hover:text-white uppercase mb-4 pb-4 border-b-4 border-black group-hover:border-white transition-all duration-300 group-hover:[text-shadow:2px_2px_0px_#000]">{member.role}</p>
-              <p className="text-base font-inter font-medium text-gray-800 group-hover:text-white flex-grow mb-6 line-clamp-3 transition-all duration-300 group-hover:[text-shadow:1.5px_1.5px_0px_#000]">{member.description}</p>
-              <button 
-                onClick={() => setSelectedMember(member)}
-                className={`mt-auto py-3 px-4 text-center font-space font-black uppercase text-sm border-2 border-black w-full transition-all duration-200 shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none bg-brand-bg-1 ${member.hoverColor}`}
-              >
-                More Details
-              </button>
+
+              <div className={`w-10 h-10 md:w-12 md:h-12 border-4 border-black flex items-center justify-center shrink-0 bg-white group-hover:bg-brand-bg-1 transition-colors ${member.hoverColor}`}>
+                <span className="text-2xl md:text-3xl font-space font-black leading-none text-black">+</span>
+              </div>
+
             </div>
           </div>
         ))}

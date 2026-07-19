@@ -110,7 +110,7 @@ export default function TeamGrid() {
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       
-      <div className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:ml-auto lg:mr-[5%] xl:mr-[10%] relative">
+      <div className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:ml-auto lg:mr-[5%] xl:mr-[10%] mt-8 lg:mt-24 relative">
         {teamMembers.map((member, i) => {
           const isHovered = hoveredIndex === i;
           return (

@@ -39,7 +39,7 @@ export default function Navbar() {
       )}
     >
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-        <Link href="/" className="relative z-50 flex items-center text-4xl md:text-5xl font-logo tracking-tighter uppercase text-black">
+        <Link href="/" className="relative z-50 flex items-center text-4xl md:text-5xl font-logo tracking-tighter uppercase text-black outline-none focus:outline-none">
           <motion.span 
             animate={{
               x: [0, -2, 2, -1, 1, 0],

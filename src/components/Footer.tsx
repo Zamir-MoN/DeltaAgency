@@ -17,7 +17,7 @@ export default function Footer() {
           
           {/* Brand & Intro */}
           <div className="lg:col-span-1">
-            <Link href="/" className="inline-block mb-6 h-12 flex items-center text-4xl font-logo tracking-tighter uppercase text-black">
+            <Link href="/" className="inline-block mb-6 h-12 flex items-center text-4xl font-logo tracking-tighter uppercase text-black outline-none focus:outline-none">
               DX
             </Link>
             <p className="text-black font-space font-bold leading-relaxed mb-8">

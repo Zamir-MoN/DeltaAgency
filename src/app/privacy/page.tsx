@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PrivacyPolicy() {
   return (
-    <div className="min-h-screen bg-brand-bg-1 pt-32 pb-24 px-6 md:px-12">
+    <div className="min-h-screen bg-brand-bg-1 bg-grid pt-32 pb-24 px-6 md:px-12">
       <div className="container mx-auto max-w-4xl">
         {/* Header Section */}
         <div className="bg-brand-cyan border-4 border-black p-8 md:p-12 mb-12 shadow-[12px_12px_0_0_#000] relative overflow-hidden">

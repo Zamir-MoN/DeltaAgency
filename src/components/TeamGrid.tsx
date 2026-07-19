@@ -47,7 +47,7 @@ const teamMembers = [
     skills: ["Node.js", "Express.js", "Python", "REST APIs", "Database Design", "MySQL", "PostgreSQL", "MongoDB", "Linux Administration", "Docker", "Nginx", "DevOps", "CI/CD", "Cloud Infrastructure", "VPS Management", "Server Security", "Git & GitHub", "Performance Optimization"]
   },
   {
-    name: "Zamir Mondol",
+    name: "Zamir Joi",
     role: "UI/UX & Frontend Designer",
     description: "Designs intuitive user experiences and modern interfaces while developing responsive, user-friendly frontend solutions.",
     icon: MonitorSmartphone,
@@ -67,7 +67,7 @@ const teamMembers = [
     skills: ["Brand Identity Design", "Logo Design", "Adobe Photoshop", "Adobe Illustrator", "Adobe InDesign", "Social Media Design", "Print Design", "Packaging Design", "Typography", "Color Theory", "Marketing Creatives", "Visual Communication"]
   },
   {
-    name: "Imraj Khan",
+    name: "Imraj Mondal",
     role: "Video Editor",
     description: "Crafts high-quality video content with a focus on storytelling, smooth editing, and engaging visuals across digital platforms.",
     icon: Video,

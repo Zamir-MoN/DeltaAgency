@@ -123,17 +123,21 @@ export default function TeamGrid() {
       >
         {/* Default Hover Card (When nothing is hovered) */}
         <div 
-          className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-0 bottom-0 h-full w-[340px] flex-col bg-white border-4 border-black shadow-[12px_12px_0_0_#000] items-center justify-center text-center p-8 transition-all duration-300 ${hoveredIndex === null ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+          className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-0 bottom-0 h-full w-[340px] bg-white border-4 border-black shadow-[12px_12px_0_0_#000] items-center justify-center overflow-hidden transition-all duration-300 ${hoveredIndex === null ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
         >
-          <div className="w-24 h-24 bg-brand-yellow border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 hover:rotate-3 transition-transform">
-            <Users size={48} className="text-black" />
+          <div className="flex flex-row items-center gap-10 rotate-90 whitespace-nowrap origin-center">
+            <div className="w-24 h-24 bg-brand-yellow border-4 border-black flex flex-shrink-0 items-center justify-center shadow-[4px_4px_0_0_#000] -rotate-3 hover:rotate-3 transition-transform">
+              <Users size={48} className="text-black" />
+            </div>
+            <div className="flex flex-col items-start text-left">
+              <h3 className="text-5xl font-space font-black text-black uppercase mb-1 leading-tight tracking-wider">
+                Meet The Crew
+              </h3>
+              <p className="text-xl font-space font-bold text-gray-500 uppercase tracking-widest">
+                Hover over any member to preview their profile
+              </p>
+            </div>
           </div>
-          <h3 className="text-2xl font-space font-black text-black uppercase mb-2 leading-tight">
-            Meet The Crew
-          </h3>
-          <p className="text-sm font-space font-bold text-gray-500 uppercase">
-            Hover over any member to preview their profile
-          </p>
         </div>
 
         {teamMembers.map((member, i) => {

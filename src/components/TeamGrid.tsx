@@ -176,7 +176,7 @@ export default function TeamGrid() {
       <AnimatePresence>
         {selectedMember && (
           <div 
-            className="fixed inset-0 z-[99999] flex flex-col justify-end items-center p-4 md:p-8 bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0 bg-black/60 backdrop-blur-sm"
             onClick={() => setSelectedMember(null)}
             data-lenis-prevent
             onWheel={(e) => e.stopPropagation()}

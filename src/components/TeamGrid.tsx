@@ -129,9 +129,9 @@ export default function TeamGrid() {
               <div className={`w-14 h-14 ${member.color} border-4 border-black flex items-center justify-center mb-6 transition-all duration-300 ${member.animation}`}>
                 <member.icon size={28} className="text-black" />
               </div>
-              <h3 className="text-xl font-space font-black text-black uppercase mb-1">{member.name}</h3>
-              <p className="text-sm font-space font-bold text-gray-500 uppercase mb-4 pb-4 border-b-4 border-black">{member.role}</p>
-              <p className="text-base font-inter font-medium text-gray-800 flex-grow mb-6 line-clamp-3 group-hover:text-black transition-colors duration-300">{member.description}</p>
+              <h3 className="text-xl font-space font-black text-black group-hover:text-white uppercase mb-1 transition-colors duration-300">{member.name}</h3>
+              <p className="text-sm font-space font-bold text-gray-500 group-hover:text-gray-200 uppercase mb-4 pb-4 border-b-4 border-black group-hover:border-white transition-colors duration-300">{member.role}</p>
+              <p className="text-base font-inter font-medium text-gray-800 group-hover:text-white flex-grow mb-6 line-clamp-3 transition-colors duration-300">{member.description}</p>
               <button 
                 onClick={() => setSelectedMember(member)}
                 className={`mt-auto py-3 px-4 text-center font-space font-black uppercase text-sm border-2 border-black w-full transition-all duration-200 shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none bg-brand-bg-1 ${member.hoverColor}`}

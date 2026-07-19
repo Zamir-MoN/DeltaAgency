@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X } from "lucide-react";
+import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X, Instagram, Linkedin, Send, Gamepad2 } from "lucide-react";
 import PixelSnow from "./PixelSnow";
 
 const teamMembers = [
@@ -123,30 +123,53 @@ export default function TeamGrid() {
               
               {/* Floating Preview Card (Desktop Only) */}
               <div 
-                className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex-col items-center justify-center text-center transition-all duration-300 overflow-hidden ${member.color} ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+                className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] flex-col bg-white border-4 border-black shadow-[12px_12px_0_0_#000] transition-all duration-300 overflow-hidden ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
               >
-                {(member as any).hoverImage ? (
-                  <div 
-                    className="absolute inset-0 z-0 opacity-100 pointer-events-none"
-                    style={{
-                      backgroundImage: `url('${(member as any).hoverImage}')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                    }}
-                  />
-                ) : (
-                  <>
-                    <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3">
-                      <member.icon size={48} className="text-black" />
-                    </div>
-                    <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
-                      {member.name}
-                    </h3>
-                    <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
-                      {member.role}
-                    </p>
-                  </>
-                )}
+                {/* Top Image Section */}
+                <div className={`w-full aspect-square relative border-b-4 border-black ${member.color} flex flex-col items-center justify-center text-center p-8`}>
+                  {(member as any).hoverImage ? (
+                    <div 
+                      className="absolute inset-0 z-0 opacity-100 pointer-events-none"
+                      style={{
+                        backgroundImage: `url('${(member as any).hoverImage}')`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                      }}
+                    />
+                  ) : (
+                    <>
+                      <div className="relative z-10 w-24 h-24 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3">
+                        <member.icon size={48} className="text-black" />
+                      </div>
+                      <h3 className="relative z-10 text-2xl font-space font-black text-white uppercase [text-shadow:2px_2px_0px_#000] mb-2 leading-tight">
+                        {member.name}
+                      </h3>
+                      <p className="relative z-10 text-sm font-space font-bold text-white uppercase [text-shadow:2px_2px_0px_#000]">
+                        {member.role}
+                      </p>
+                    </>
+                  )}
+                </div>
+
+                {/* Bottom Social Icons Section */}
+                <div className="w-full h-16 bg-white flex items-center justify-center gap-6">
+                  {/* Instagram */}
+                  <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-pink hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
+                    <Instagram size={20} />
+                  </div>
+                  {/* Discord */}
+                  <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-purple hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
+                    <Gamepad2 size={20} />
+                  </div>
+                  {/* Telegram */}
+                  <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-cyan hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
+                    <Send size={20} />
+                  </div>
+                  {/* LinkedIn */}
+                  <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-blue hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
+                    <Linkedin size={20} />
+                  </div>
+                </div>
               </div>
 
               <div className="flex items-center gap-4 md:gap-6 relative z-10">

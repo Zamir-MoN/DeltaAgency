@@ -47,7 +47,7 @@ const teamMembers = [
     skills: ["Node.js", "Express.js", "Python", "REST APIs", "Database Design", "MySQL", "PostgreSQL", "MongoDB", "Linux Administration", "Docker", "Nginx", "DevOps", "CI/CD", "Cloud Infrastructure", "VPS Management", "Server Security", "Git & GitHub", "Performance Optimization"]
   },
   {
-    name: "Zamir Joi",
+    name: "MD. Zamir",
     role: "UI/UX & Frontend Designer",
     description: "Designs intuitive user experiences and modern interfaces while developing responsive, user-friendly frontend solutions.",
     icon: MonitorSmartphone,

@@ -85,7 +85,7 @@ export default function Footer() {
           </p>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-black hover:bg-black hover:text-white px-2 py-1 font-space font-bold text-sm uppercase transition-colors">Privacy Policy</Link>
-            <Link href="#" className="text-black hover:bg-black hover:text-white px-2 py-1 font-space font-bold text-sm uppercase transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="text-black hover:bg-black hover:text-white px-2 py-1 font-space font-bold text-sm uppercase transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

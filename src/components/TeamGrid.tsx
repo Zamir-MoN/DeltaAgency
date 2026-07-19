@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X, Instagram, Linkedin, Send, Gamepad2 } from "lucide-react";
+import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X } from "lucide-react";
+import { FaInstagram, FaDiscord, FaTelegramPlane, FaLinkedinIn } from "react-icons/fa";
 import PixelSnow from "./PixelSnow";
 
 const teamMembers = [
@@ -155,19 +156,19 @@ export default function TeamGrid() {
                 <div className="w-full h-16 bg-white flex items-center justify-center gap-6">
                   {/* Instagram */}
                   <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-pink hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
-                    <Instagram size={20} />
+                    <FaInstagram size={20} />
                   </div>
                   {/* Discord */}
                   <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-purple hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
-                    <Gamepad2 size={20} />
+                    <FaDiscord size={20} />
                   </div>
                   {/* Telegram */}
                   <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-cyan hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
-                    <Send size={20} />
+                    <FaTelegramPlane size={20} />
                   </div>
                   {/* LinkedIn */}
                   <div className="w-10 h-10 border-2 border-black flex items-center justify-center bg-brand-bg-1 hover:bg-brand-blue hover:text-white hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all cursor-pointer">
-                    <Linkedin size={20} />
+                    <FaLinkedinIn size={20} />
                   </div>
                 </div>
               </div>

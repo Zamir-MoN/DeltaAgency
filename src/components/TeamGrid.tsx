@@ -188,7 +188,7 @@ export default function TeamGrid() {
                 exit={{ y: "100%", opacity: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 onClick={(e) => e.stopPropagation()}
-                className={`w-full max-w-3xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
+                className={`w-full max-w-5xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
               >
               {/* Galaxy Background Image with Mix Blend */}
               <div 
@@ -227,13 +227,6 @@ export default function TeamGrid() {
                   </p>
                   
                   <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
-                    {(selectedMember as any).hoverImage && (
-                      <img 
-                        src={(selectedMember as any).hoverImage}
-                        alt={selectedMember.name}
-                        className="w-full h-56 md:h-80 object-cover object-top border-b-4 border-black"
-                      />
-                    )}
                     <div className="p-6 md:p-8">
                       <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
                         {selectedMember.description}

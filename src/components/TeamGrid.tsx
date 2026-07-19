@@ -110,7 +110,7 @@ export default function TeamGrid() {
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       
-      <div className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:ml-auto lg:mr-[5%] xl:mr-[10%] mt-8 lg:mt-24 relative">
+      <div className="flex flex-col gap-4 md:gap-6 max-w-3xl mx-auto lg:mr-auto lg:ml-[5%] xl:ml-[10%] mt-8 lg:mt-24 relative">
         {teamMembers.map((member, i) => {
           const isHovered = hoveredIndex === i;
           return (
@@ -123,7 +123,7 @@ export default function TeamGrid() {
               
               {/* Floating Preview Card (Desktop Only) */}
               <div 
-                className={`hidden lg:flex absolute right-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex-col items-center justify-center text-center transition-all duration-300 overflow-hidden ${member.color} ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+                className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square border-4 border-black p-8 shadow-[12px_12px_0_0_#000] flex-col items-center justify-center text-center transition-all duration-300 overflow-hidden ${member.color} ${isHovered ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
               >
                 {(member as any).hoverImage ? (
                   <div 

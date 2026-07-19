@@ -182,14 +182,14 @@ export default function TeamGrid() {
             onWheel={(e) => e.stopPropagation()}
             onTouchMove={(e) => e.stopPropagation()}
           >
-            <motion.div
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: "100%", opacity: 0 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              onClick={(e) => e.stopPropagation()}
-              className={`w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_0_#000] relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
-            >
+              <motion.div
+                initial={{ y: "100%", opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: "100%", opacity: 0 }}
+                transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                onClick={(e) => e.stopPropagation()}
+                className={`w-full max-w-3xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
+              >
               {/* Galaxy Background Image with Mix Blend */}
               <div 
                 className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"

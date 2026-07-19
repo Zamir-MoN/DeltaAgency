@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X } from "lucide-react";
 import { FaInstagram, FaDiscord, FaTelegramPlane, FaLinkedinIn } from "react-icons/fa";
@@ -93,6 +94,11 @@ const teamMembers = [
 export default function TeamGrid() {
   const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null);
   const [hoveredIndex, setHoveredIndex] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Prevent background scrolling when modal is open
   useEffect(() => {
@@ -197,94 +203,97 @@ export default function TeamGrid() {
         })}
       </div>
 
-      <AnimatePresence>
-        {selectedMember && (
-          <div 
-            className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setSelectedMember(null)}
-            data-lenis-prevent
-            onWheel={(e) => e.stopPropagation()}
-            onTouchMove={(e) => e.stopPropagation()}
-          >
-              <motion.div
-                initial={{ y: "100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: "100%", opacity: 0 }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                onClick={(e) => e.stopPropagation()}
-                className={`w-full max-w-5xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
-              >
-              {/* Galaxy Background Image with Mix Blend */}
-              <div 
-                className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"
-                style={{
-                  backgroundImage: `url('https://img.magnific.com/free-photo/anime-style-galaxy-background_23-2151134130.jpg?semt=ais_hybrid&w=740&q=80')`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                }}
-              />
-              
-              {/* Pixel Snow Effect */}
-              <div className="absolute inset-0 pointer-events-none opacity-30 z-0 overflow-hidden">
-                <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
-              </div>
-
-              {/* Scrollable Content Container */}
-              <div className="relative z-10 w-full h-full p-8 md:p-12 overflow-y-auto flex flex-col" data-lenis-prevent>
-                <button 
-                  onClick={() => setSelectedMember(null)}
-                  className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-yellow hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer hidden md:block"
+      {isMounted && typeof document !== 'undefined' ? createPortal(
+        <AnimatePresence>
+          {selectedMember && (
+            <div 
+              className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setSelectedMember(null)}
+              data-lenis-prevent
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
+                <motion.div
+                  initial={{ y: "100%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "100%", opacity: 0 }}
+                  transition={{ type: "spring", damping: 25, stiffness: 200 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`w-full max-w-5xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
                 >
-                  <X size={24} strokeWidth={3} className="text-black" />
-                </button>
+                {/* Galaxy Background Image with Mix Blend */}
+                <div 
+                  className="absolute inset-0 pointer-events-none z-0 mix-blend-overlay opacity-60"
+                  style={{
+                    backgroundImage: `url('https://img.magnific.com/free-photo/anime-style-galaxy-background_23-2151134130.jpg?semt=ais_hybrid&w=740&q=80')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                
+                {/* Pixel Snow Effect */}
+                <div className="absolute inset-0 pointer-events-none opacity-30 z-0 overflow-hidden">
+                  <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
+                </div>
 
-                <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
-                  <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
-                    <selectedMember.icon size={32} strokeWidth={4} className="text-black" />
-                  </div>
-                  
-                  <h3 className="text-3xl md:text-5xl font-space font-black text-black uppercase mb-2 leading-tight">
-                    {selectedMember.name}
-                  </h3>
-                  <p className="text-xl md:text-2xl font-space font-bold text-black uppercase mb-6 opacity-90">
-                    {selectedMember.role}
-                  </p>
-                  
-                  <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
-                    <div className="p-6 md:p-8">
-                      <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
-                        {selectedMember.description}
-                      </p>
-                      
-                      {selectedMember.skills && selectedMember.skills.length > 0 && (
-                        <div className="mt-8 pt-8 border-t-4 border-black">
-                          <h4 className="text-xl md:text-2xl font-space font-black text-black uppercase mb-6">
-                            Skills & Expertise
-                          </h4>
-                          <div className="flex flex-wrap gap-3">
-                            {selectedMember.skills.map((skill, index) => (
-                              <span key={index} className="bg-brand-bg-1 border-2 border-black px-4 py-2 text-sm font-space font-bold text-black uppercase shadow-[2px_2px_0_0_#000]">
-                                {skill}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
+                {/* Scrollable Content Container */}
+                <div className="relative z-10 w-full h-full p-8 md:p-12 overflow-y-auto flex flex-col" data-lenis-prevent>
                   <button 
                     onClick={() => setSelectedMember(null)}
-                    className="w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black bg-black text-white hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-yellow hover:text-black hover:-translate-y-1 hover:-translate-x-1"
+                    className="absolute top-6 right-6 md:top-8 md:right-8 bg-white border-4 border-black p-2 hover:bg-brand-yellow hover:-translate-y-1 hover:shadow-[4px_4px_0_0_#000] transition-all z-50 cursor-pointer hidden md:block"
                   >
-                    Close Details
+                    <X size={24} strokeWidth={3} className="text-black" />
                   </button>
+
+                  <div className="flex-grow flex flex-col justify-center mt-12 md:mt-0 relative z-10">
+                    <div className="w-16 h-16 bg-white border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000]">
+                      <selectedMember.icon size={32} strokeWidth={4} className="text-black" />
+                    </div>
+                    
+                    <h3 className="text-3xl md:text-5xl font-space font-black text-black uppercase mb-2 leading-tight">
+                      {selectedMember.name}
+                    </h3>
+                    <p className="text-xl md:text-2xl font-space font-bold text-black uppercase mb-6 opacity-90">
+                      {selectedMember.role}
+                    </p>
+                    
+                    <div className="bg-white border-4 border-black shadow-[4px_4px_0_0_#000] mb-8 flex flex-col">
+                      <div className="p-6 md:p-8">
+                        <p className="text-lg md:text-xl text-black font-medium leading-relaxed">
+                          {selectedMember.description}
+                        </p>
+                        
+                        {selectedMember.skills && selectedMember.skills.length > 0 && (
+                          <div className="mt-8 pt-8 border-t-4 border-black">
+                            <h4 className="text-xl md:text-2xl font-space font-black text-black uppercase mb-6">
+                              Skills & Expertise
+                            </h4>
+                            <div className="flex flex-wrap gap-3">
+                              {selectedMember.skills.map((skill, index) => (
+                                <span key={index} className="bg-brand-bg-1 border-2 border-black px-4 py-2 text-sm font-space font-bold text-black uppercase shadow-[2px_2px_0_0_#000]">
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <button 
+                      onClick={() => setSelectedMember(null)}
+                      className="w-full py-4 text-center font-space font-black uppercase tracking-wider transition-all duration-200 border-4 border-black bg-black text-white hover:shadow-[6px_6px_0_0_rgba(0,0,0,1)] hover:bg-brand-yellow hover:text-black hover:-translate-y-1 hover:-translate-x-1"
+                    >
+                      Close Details
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      ) : null}
     </div>
   );
 }

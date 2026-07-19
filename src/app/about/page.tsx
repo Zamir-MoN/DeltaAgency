@@ -61,7 +61,7 @@ export default function AboutPage() {
               We Build The <br className="hidden md:block"/>
               <span className="inline-block relative mt-4 md:mt-0">
                 <span className="absolute inset-0 bg-brand-yellow transform -rotate-2 border-4 border-black z-[-1]"></span>
-                <span className="relative z-10 px-6 text-white" style={{ WebkitTextStroke: "2px black" }}>Future</span>
+                <span className="relative z-10 px-4 py-2 md:px-6 md:py-2 inline-block text-white" style={{ WebkitTextStroke: "2px black" }}>Future</span>
               </span>
             </motion.h1>
             

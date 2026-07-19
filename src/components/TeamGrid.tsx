@@ -55,7 +55,7 @@ const teamMembers = [
     hoverColor: "hover:bg-brand-yellow",
     animation: "group-hover:scale-110 group-hover:rotate-6",
     skills: ["UI Design", "UX Research", "Wireframing", "Prototyping", "Figma", "HTML5", "CSS3", "JavaScript", "TypeScript", "React.js", "Next.js", "Tailwind CSS", "GSAP Animations", "Framer Motion", "Responsive Design", "Design Systems", "Accessibility (WCAG)"],
-    hoverImage: "/images/md_zamir_bg.png"
+    hoverImage: "/images/md_zamir_bg_002.png"
   },
   {
     name: "Tushar Gupta",
@@ -121,10 +121,7 @@ export default function TeamGrid() {
                   backgroundSize: 'cover',
                   backgroundPosition: 'center',
                 }}
-              >
-                {/* Optional dark overlay so text stays readable */}
-                <div className="absolute inset-0 bg-white/80 mix-blend-overlay"></div>
-              </div>
+              />
             )}
             
             {/* Content wrapper */}

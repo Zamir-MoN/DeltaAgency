@@ -106,6 +106,7 @@ export default function TeamGrid() {
     };
   }, [selectedMember]);
 
+  return (
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       

@@ -54,7 +54,8 @@ const teamMembers = [
     color: "bg-brand-yellow",
     hoverColor: "hover:bg-brand-yellow",
     animation: "group-hover:scale-110 group-hover:rotate-6",
-    skills: ["UI Design", "UX Research", "Wireframing", "Prototyping", "Figma", "HTML5", "CSS3", "JavaScript", "TypeScript", "React.js", "Next.js", "Tailwind CSS", "GSAP Animations", "Framer Motion", "Responsive Design", "Design Systems", "Accessibility (WCAG)"]
+    skills: ["UI Design", "UX Research", "Wireframing", "Prototyping", "Figma", "HTML5", "CSS3", "JavaScript", "TypeScript", "React.js", "Next.js", "Tailwind CSS", "GSAP Animations", "Framer Motion", "Responsive Design", "Design Systems", "Accessibility (WCAG)"],
+    hoverImage: "/images/md_zamir_bg.png"
   },
   {
     name: "Tushar Gupta",
@@ -109,19 +110,38 @@ export default function TeamGrid() {
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
         {teamMembers.map((member, i) => (
-          <div key={i} className="group bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full">
-            <div className={`w-14 h-14 ${member.color} border-4 border-black flex items-center justify-center mb-6 transition-all duration-300 ${member.animation}`}>
-              <member.icon size={28} className="text-black" />
+          <div key={i} className="group bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative overflow-hidden">
+            
+            {/* Hover Background Image */}
+            {(member as any).hoverImage && (
+              <div 
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-0"
+                style={{
+                  backgroundImage: `url('${(member as any).hoverImage}')`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              >
+                {/* Optional dark overlay so text stays readable */}
+                <div className="absolute inset-0 bg-white/80 mix-blend-overlay"></div>
+              </div>
+            )}
+            
+            {/* Content wrapper */}
+            <div className="relative z-10 flex flex-col h-full">
+              <div className={`w-14 h-14 ${member.color} border-4 border-black flex items-center justify-center mb-6 transition-all duration-300 ${member.animation}`}>
+                <member.icon size={28} className="text-black" />
+              </div>
+              <h3 className="text-xl font-space font-black text-black uppercase mb-1">{member.name}</h3>
+              <p className="text-sm font-space font-bold text-gray-500 uppercase mb-4 pb-4 border-b-4 border-black">{member.role}</p>
+              <p className="text-base font-inter font-medium text-gray-800 flex-grow mb-6 line-clamp-3 group-hover:text-black transition-colors duration-300">{member.description}</p>
+              <button 
+                onClick={() => setSelectedMember(member)}
+                className={`mt-auto py-3 px-4 text-center font-space font-black uppercase text-sm border-2 border-black w-full transition-all duration-200 shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none bg-brand-bg-1 ${member.hoverColor}`}
+              >
+                More Details
+              </button>
             </div>
-            <h3 className="text-xl font-space font-black text-black uppercase mb-1">{member.name}</h3>
-            <p className="text-sm font-space font-bold text-gray-500 uppercase mb-4 pb-4 border-b-4 border-black">{member.role}</p>
-            <p className="text-base font-inter font-medium text-gray-800 flex-grow mb-6 line-clamp-3">{member.description}</p>
-            <button 
-              onClick={() => setSelectedMember(member)}
-              className={`mt-auto py-3 px-4 text-center font-space font-black uppercase text-sm border-2 border-black w-full transition-all duration-200 shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] active:translate-y-1 active:translate-x-1 active:shadow-none bg-brand-bg-1 ${member.hoverColor}`}
-            >
-              More Details
-            </button>
           </div>
         ))}
       </div>

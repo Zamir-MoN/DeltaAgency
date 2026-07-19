@@ -214,38 +214,41 @@ export default function TeamGrid() {
                   <X size={24} className="text-black" />
                 </button>
                 
-                <div className="flex flex-col md:flex-row gap-8 items-start relative z-0 mt-4 md:mt-0">
-                  <div className={`w-24 h-24 shrink-0 border-4 border-black flex items-center justify-center shadow-[8px_8px_0_0_#000] bg-white`}>
-                    <selectedMember.icon size={48} className="text-black" />
+                {/* Header: Icon + Name & Role */}
+                <div className="flex flex-col md:flex-row gap-6 md:gap-8 items-start relative z-0 mt-4 md:mt-0 mb-8 md:mb-10">
+                  <div className={`w-28 h-28 md:w-32 md:h-32 shrink-0 border-4 border-black flex items-center justify-center shadow-[8px_8px_0_0_#000] bg-white`}>
+                    <selectedMember.icon size={56} className="text-black" />
                   </div>
-                  <div>
-                    <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4 mt-2 md:mt-0">
-                      <span className="bg-white px-3 py-1 inline-block border-4 border-black shadow-[4px_4px_0_0_#000] leading-snug">{selectedMember.name}</span>
+                  <div className="flex flex-col items-start pt-2">
+                    <h3 className="text-3xl md:text-4xl font-space font-black text-black uppercase mb-4">
+                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000] leading-snug">{selectedMember.name}</span>
                     </h3>
-                    <p className="text-xl font-space font-bold text-black uppercase mb-8">
-                      <span className="bg-white px-3 py-1 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">{selectedMember.role}</span>
+                    <p className="text-xl font-space font-bold text-black uppercase">
+                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">{selectedMember.role}</span>
                     </p>
-                    
-                    <p className="text-lg font-inter font-bold text-gray-900 leading-relaxed bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] mb-10">
-                      {selectedMember.description}
-                    </p>
-                    
-                    {selectedMember.skills && selectedMember.skills.length > 0 && (
-                      <div>
-                        <h4 className="text-2xl font-space font-black text-black uppercase mb-6 mt-4">
-                          <span className="bg-white px-3 py-1 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">Skills & Expertise</span>
-                        </h4>
-                        <div className="flex flex-wrap gap-3">
-                          {selectedMember.skills.map((skill, index) => (
-                            <span key={index} className="bg-white border-2 border-black px-4 py-2 text-sm font-inter font-bold text-black shadow-[3px_3px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[5px_5px_0_0_#000] transition-all cursor-default">
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
+                
+                {/* Full Width Description */}
+                <p className="text-lg md:text-xl font-inter font-bold text-gray-900 leading-relaxed bg-white border-4 border-black p-6 md:p-8 shadow-[8px_8px_0_0_#000] mb-10 relative z-0">
+                  {selectedMember.description}
+                </p>
+                
+                {/* Full Width Skills */}
+                {selectedMember.skills && selectedMember.skills.length > 0 && (
+                  <div className="relative z-0 pb-8">
+                    <h4 className="text-2xl md:text-3xl font-space font-black text-black uppercase mb-8 mt-2">
+                      <span className="bg-white px-4 py-2 inline-block border-4 border-black shadow-[4px_4px_0_0_#000]">Skills & Expertise</span>
+                    </h4>
+                    <div className="flex flex-wrap gap-4">
+                      {selectedMember.skills.map((skill, index) => (
+                        <span key={index} className="bg-white border-4 border-black px-4 py-2 text-sm md:text-base font-inter font-bold text-black shadow-[4px_4px_0_0_#000] hover:-translate-y-1 hover:-translate-x-1 hover:shadow-[6px_6px_0_0_#000] transition-all cursor-default">
+                          {skill}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

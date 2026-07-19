@@ -108,7 +108,7 @@ export default function TeamGrid() {
   return (
     <div className="mb-24 relative">
       <h2 className="text-4xl md:text-5xl font-space font-black text-black uppercase mb-12 border-b-8 border-black pb-4 inline-block">The Crew</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 auto-rows-fr">
+      <div className="grid grid-cols-1 gap-8 max-w-3xl mx-auto auto-rows-fr">
         {teamMembers.map((member, i) => (
           <div key={i} className="group bg-white border-4 border-black p-6 shadow-[8px_8px_0_0_#000] hover:-translate-y-2 hover:-translate-x-2 hover:shadow-[12px_12px_0_0_#000] transition-all duration-200 flex flex-col h-full relative overflow-hidden">
             

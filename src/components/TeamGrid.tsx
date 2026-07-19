@@ -123,7 +123,7 @@ export default function TeamGrid() {
       >
         {/* Default Hover Card (When nothing is hovered) */}
         <div 
-          className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] aspect-square flex-col bg-white border-4 border-black shadow-[12px_12px_0_0_#000] items-center justify-center text-center p-8 transition-all duration-300 ${hoveredIndex === null ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
+          className={`hidden lg:flex absolute left-[calc(100%+2rem)] top-1/2 -translate-y-1/2 w-[340px] h-[404px] flex-col bg-white border-4 border-black shadow-[12px_12px_0_0_#000] items-center justify-center text-center p-8 transition-all duration-300 ${hoveredIndex === null ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}`}
         >
           <div className="w-24 h-24 bg-brand-yellow border-4 border-black flex items-center justify-center mb-6 shadow-[4px_4px_0_0_#000] -rotate-3 hover:rotate-3 transition-transform">
             <Users size={48} className="text-black" />

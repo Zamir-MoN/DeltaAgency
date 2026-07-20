@@ -228,13 +228,17 @@ export default function TeamGrid() {
       {isMounted && typeof document !== 'undefined' ? createPortal(
         <AnimatePresence>
           {selectedMember && (
-            <div 
-              className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0 bg-black/60 backdrop-blur-sm"
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0"
               onClick={() => setSelectedMember(null)}
               data-lenis-prevent
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
             >
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-md -z-10" />
                 <motion.div
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
@@ -308,7 +312,7 @@ export default function TeamGrid() {
                   </div>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
           )}
         </AnimatePresence>,
         document.body

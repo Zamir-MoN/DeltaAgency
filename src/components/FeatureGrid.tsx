@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Check, X } from "lucide-react";
 import Link from "next/link";
-import PixelSnow from "./PixelSnow";
+
 import Lottie from "lottie-react";
 import sideCatAnimation from "../../public/sidecat.json";
 
@@ -125,9 +125,7 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
-                <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
-              </div>
+
 
               <button 
                 onClick={() => setSelectedFeature(null)}

@@ -5,7 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { services } from "../data/services";
 import { useRouter } from "next/navigation";
-import PixelSnow from "./PixelSnow";
+
 
 function ServiceCard({ service, index, onClick }: { service: typeof services[0]; index: number; onClick: () => void }) {
   return (
@@ -156,14 +156,7 @@ export default function Services() {
                 className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-auto overflow-hidden"
                 onClick={() => setSelectedService(null)}
               >
-                <div className="absolute inset-0 opacity-50">
-                  <PixelSnow 
-                    color={getHexColor(selectedIndex)} 
-                    flakeSize={0.015} 
-                    density={0.1} 
-                    speed={1.5} 
-                  />
-                </div>
+
               </motion.div>
               
               <div className="relative z-10 w-full max-w-5xl flex flex-col md:flex-row pointer-events-auto h-auto max-h-[90vh] overflow-y-auto overflow-x-hidden md:overflow-visible">

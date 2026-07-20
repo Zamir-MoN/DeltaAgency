@@ -3,14 +3,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Globe, MessageSquare, Mail, Link as LinkIcon } from "lucide-react";
-import PixelSnow from "./PixelSnow";
+
 
 export default function Footer() {
   return (
     <footer className="relative border-t-8 border-black bg-brand-cyan pt-24 pb-12 overflow-hidden text-black">
-      <div className="absolute inset-0 pointer-events-none opacity-30 z-0">
-        <PixelSnow color="#000000" flakeSize={0.02} density={0.15} speed={1.25} />
-      </div>
+
       
       <div className="container relative z-10 mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">

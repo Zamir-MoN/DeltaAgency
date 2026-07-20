@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Rocket, Palette, Settings, Server, MonitorSmartphone, PenTool, Video, Clapperboard, X, Users } from "lucide-react";
 import { FaInstagram, FaDiscord, FaTelegramPlane, FaLinkedinIn } from "react-icons/fa";
-import PixelSnow from "./PixelSnow";
+
 
 const teamMembers = [
   {
@@ -253,10 +253,7 @@ export default function TeamGrid() {
                   }}
                 />
                 
-                {/* Pixel Snow Effect */}
-                <div className="absolute inset-0 pointer-events-none opacity-30 z-0 overflow-hidden">
-                  <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
-                </div>
+
 
                 {/* Scrollable Content Container */}
                 <div className="relative z-10 w-full h-full p-8 md:p-12 overflow-y-auto flex flex-col" data-lenis-prevent>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Diamond, Search, MonitorSmartphone, ShieldCheck, Layers, X } from "lucide-react";
-import PixelSnow from "./PixelSnow";
+
 import Lottie from "lottie-react";
 import catAnimation from "../../public/cat-animation.json";
 import sideCatAnimation from "../../public/sidecat.json";
@@ -189,9 +189,6 @@ export default function WhyChooseUs() {
                   backgroundPosition: 'center',
                 }}
               />
-              <div className="absolute inset-0 pointer-events-none opacity-30 z-0 overflow-hidden">
-                <PixelSnow color="#000000" flakeSize={0.02} density={0.1} speed={1.5} />
-              </div>
 
               {(selectedReason.reason.title === "Premium Design" || selectedReason.reason.title === "Secure") && (
                 <div className="absolute top-0 right-8 md:right-12 -translate-y-[35%] w-48 h-48 md:w-64 md:h-64 z-50 pointer-events-none">

@@ -39,7 +39,7 @@ const teamMembers = [
     skills: ["Operations Management", "Project Coordination", "Team Leadership", "Workflow Optimization", "Process Management", "Resource Planning", "Client Communication", "Time Management", "Risk Management", "Quality Assurance", "Documentation", "Strategic Planning"]
   },
   {
-    name: "Sagar Pal",
+    name: "Sagar Paul",
     role: "Backend Developer & DevOps Engineer",
     description: "Builds scalable backend systems, manages servers, and handles Linux-based infrastructure to ensure secure, reliable, and high-performance applications.",
     icon: Server,

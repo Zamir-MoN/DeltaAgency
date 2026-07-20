@@ -163,20 +163,31 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      <AnimatePresence>
-        {selectedReason && (
-          <div className="fixed inset-0 z-[99999] flex pointer-events-none" data-lenis-prevent>
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="absolute inset-0 pointer-events-auto"
-              onClick={() => setSelectedReason(null)}
-            >
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-            </motion.div>
-            
-            <motion.div
+      {isMounted && typeof document !== 'undefined' ? createPortal(
+        <>
+          <AnimatePresence>
+            {selectedReason && (
+              <motion.div
+                key="overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[99998] pointer-events-auto"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)'
+                }}
+                onClick={() => setSelectedReason(null)}
+                data-lenis-prevent
+              />
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {selectedReason && (
+              <div className="fixed inset-0 z-[99999] flex pointer-events-none" data-lenis-prevent>
+                <motion.div
               initial={getSlideProps(selectedReason.index).initial}
               animate={getSlideProps(selectedReason.index).animate}
               exit={getSlideProps(selectedReason.index).exit}
@@ -242,10 +253,13 @@ export default function WhyChooseUs() {
                 </button>
               </div>
             </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>
+      </>,
+      document.body
+    ) : null}
     </section>
   );
 }

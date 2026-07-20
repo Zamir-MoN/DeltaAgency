@@ -189,23 +189,32 @@ export default function Portfolio() {
       </div>
 
       {/* Case Study Bottom Drawer */}
-      <AnimatePresence>
-        {selectedProject && (
-          <div data-lenis-prevent className="fixed inset-0 z-[100000] flex items-end justify-center pointer-events-none">
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 pointer-events-auto cursor-pointer"
-            >
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
-            </motion.div>
-            
-            {/* Drawer */}
-            {/* Drawer */}
-            <motion.div
+      {isMounted && typeof document !== 'undefined' ? createPortal(
+        <>
+          <AnimatePresence>
+            {selectedProject && (
+              <motion.div
+                key="overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setSelectedProject(null)}
+                className="fixed inset-0 z-[99998] pointer-events-auto cursor-pointer"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)'
+                }}
+                data-lenis-prevent
+              />
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {selectedProject && (
+              <div data-lenis-prevent className="fixed inset-0 z-[99999] flex items-end justify-center pointer-events-none">
+                {/* Drawer */}
+                <motion.div
               initial={{ y: "100%" }}
               animate={{ y: "0%" }}
               exit={{ y: "100%" }}
@@ -263,10 +272,13 @@ export default function Portfolio() {
                   </a>
                 </div>
               </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
+              </motion.div>
+              </div>
+            )}
+          </AnimatePresence>
+        </>,
+        document.body
+      ) : null}
     </section>
   );
 }

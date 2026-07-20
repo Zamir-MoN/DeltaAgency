@@ -226,26 +226,41 @@ export default function TeamGrid() {
       </div>
 
       {isMounted && typeof document !== 'undefined' ? createPortal(
-        <AnimatePresence>
-          {selectedMember && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0"
-              onClick={() => setSelectedMember(null)}
-              data-lenis-prevent
-              onWheel={(e) => e.stopPropagation()}
-              onTouchMove={(e) => e.stopPropagation()}
-            >
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm -z-10" />
+        <>
+          <AnimatePresence>
+            {selectedMember && (
+              <motion.div
+                key="overlay"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 z-[99998]"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)'
+                }}
+                onClick={() => setSelectedMember(null)}
+                data-lenis-prevent
+                onWheel={(e) => e.stopPropagation()}
+                onTouchMove={(e) => e.stopPropagation()}
+              />
+            )}
+          </AnimatePresence>
+
+          <AnimatePresence>
+            {selectedMember && (
+              <div 
+                className="fixed inset-0 z-[99999] flex flex-col justify-end items-center pt-4 px-4 pb-0 md:pt-8 md:px-8 md:pb-0 pointer-events-none"
+                data-lenis-prevent
+              >
                 <motion.div
+                  key="modal"
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   exit={{ y: "100%", opacity: 0 }}
                   transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className={`w-full max-w-5xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col ${selectedMember.color}`}
+                  className={`w-full max-w-5xl border-4 border-black relative overflow-hidden max-h-[85vh] mt-auto flex flex-col pointer-events-auto ${selectedMember.color}`}
                 >
                 {/* Galaxy Background Image with Mix Blend */}
                 <div 
@@ -312,9 +327,10 @@ export default function TeamGrid() {
                   </div>
                 </div>
               </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>,
+              </div>
+            )}
+          </AnimatePresence>
+        </>,
         document.body
       ) : null}
     </div>

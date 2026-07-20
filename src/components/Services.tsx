@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Check } from "lucide-react";
 import { services } from "../data/services";
@@ -59,6 +60,11 @@ export default function Services() {
   const containerRef = useRef(null);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const router = useRouter();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     if (selectedService) {

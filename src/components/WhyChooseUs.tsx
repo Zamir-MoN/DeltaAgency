@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Zap, Diamond, Search, MonitorSmartphone, ShieldCheck, Layers, X } from "lucide-react";
 
@@ -43,6 +44,11 @@ const reasons = [
 export default function WhyChooseUs() {
   const [selectedReason, setSelectedReason] = useState<{ reason: typeof reasons[0], index: number } | null>(null);
   const [sideCat, setSideCat] = useState({ show: false, position: "bottom" as "bottom" | "top" });
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useEffect(() => {
     const sideCatTitles = ["Fast Delivery", "Responsive", "SEO Optimized", "Modern Technologies"];

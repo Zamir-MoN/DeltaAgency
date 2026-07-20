@@ -198,8 +198,10 @@ export default function Portfolio() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedProject(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-sm pointer-events-auto cursor-pointer"
-            />
+              className="absolute inset-0 pointer-events-auto cursor-pointer"
+            >
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+            </motion.div>
             
             {/* Drawer */}
             {/* Drawer */}

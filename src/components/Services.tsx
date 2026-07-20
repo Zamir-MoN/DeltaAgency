@@ -153,7 +153,7 @@ export default function Services() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 bg-black/80 backdrop-blur-md pointer-events-auto overflow-hidden"
+                className="absolute inset-0 bg-black/80 backdrop-blur-sm pointer-events-auto overflow-hidden"
                 onClick={() => setSelectedService(null)}
               >
 

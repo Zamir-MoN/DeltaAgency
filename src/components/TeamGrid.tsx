@@ -238,7 +238,7 @@ export default function TeamGrid() {
               onWheel={(e) => e.stopPropagation()}
               onTouchMove={(e) => e.stopPropagation()}
             >
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-md -z-10" />
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm -z-10" />
                 <motion.div
                   initial={{ y: "100%", opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}

@@ -115,8 +115,8 @@ export default function FeatureGrid({ features, serviceTitle }: { features: Feat
                 className="fixed inset-0 z-[99998] pointer-events-auto"
                 style={{ 
                   backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)'
+                  backdropFilter: 'blur(4px)',
+                  WebkitBackdropFilter: 'blur(4px)'
                 }}
                 onClick={() => setSelectedFeature(null)}
                 data-lenis-prevent
